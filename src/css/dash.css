@@ -1,0 +1,152 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9f9f9;
+}
+
+.dashboard-layout {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 100vh;
+  background-color: #1e3a5f;
+  color: white;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.logo-circle {
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  margin-bottom: 2rem;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.sidebar li:hover,
+.sidebar li.active {
+  background-color: #34577c;
+}
+
+.main-content {
+  margin-left: 220px; 
+  padding: 2rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* .user-icon {
+  width: 40px;
+  height: 40px;
+  background-image: url('https://i.pinimg.com/originals/54/72/d1/5472d1b09d3d724228109d381d617326.jpg');
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  border-radius: 50%;
+  display: block; 
+  margin: 0 auto; 
+} */
+.user-icon:hover{
+  width: 45px;
+  height: 45px;
+  transition: 0.5s;
+}
+
+.summary-cards {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.summary-cards .card {
+  flex: 1 1 200px;
+  background: white;
+  border-radius: 10px;
+  padding: 1rem;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.summary-cards .present {
+  border-left: 5px solid #38c172;
+}
+
+.summary-cards .late {
+  border-left: 5px solid #facc15;
+}
+
+.summary-cards .absent {
+  border-left: 5px solid #e3342f;
+}
+
+.attendance-table {
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin-top: 2rem;
+}
+
+.attendance-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.attendance-table th,
+.attendance-table td {
+  text-align: left;
+  padding: 0.75rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.status-tag {
+  padding: 0.25rem 0.5rem;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: white;
+}
+
+.status-tag.present {
+  background-color: #38c172;
+}
+
+.status-tag.absent {
+  background-color: #e3342f;
+}
+
+.status-tag.late {
+  background-color: #facc15;
+  color: black;
+}

@@ -1,0 +1,102 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+}
+
+.aurora-container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: black;
+  position: relative; 
+}
+
+.txt {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  z-index: 10;
+  font-family: sans-serif;
+  font-size: 30px;
+}
+
+
+.ptag{
+  color: #fff;
+}
+
+/* From Uiverse.io by gharsh11032000 */ 
+.button {
+  position: relative;
+  width: 120px;
+  height: 40px;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  color: white;
+  flex-direction: column;
+  justify-content: center;
+  border: none;
+  padding: 12px;
+  gap: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  left: -4px;
+  top: -1px;
+  margin: auto;
+  width: 128px;
+  height: 48px;
+  border-radius: 10px;
+  background: linear-gradient(-45deg, #509d4d 0%, #40c9ff 100% );
+  backdrop-filter:blur(50px) ;
+  z-index: -10;
+  pointer-events: none;
+  transition: all 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+/* 
+.button::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100% );
+  transform: translate3d(0, 0, 0) scale(0.95);
+  filter: blur(20px);
+}
+
+.button:hover::after {
+  filter: blur(30px);
+}
+
+.button:hover::before {
+  transform: rotate(-180deg);
+}
+
+.button:active::before {
+  scale: 0.7;
+} */
+
+.btn2{
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-left: 117px;
+    gap: 33px;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
