@@ -55,7 +55,7 @@ body {
   color: white;
   width: 100%;
   max-width: 450px;
-  padding: 30px;
+  padding: 94px;
   border-radius: 15px;
   background: rgba(255, 255, 255, 0.1);
   -webkit-backdrop-filter:opacity(100px);
@@ -71,7 +71,7 @@ body {
 }
 
 .glass-card p {
-  font-size: 1em;
+  font-size: 13px;
   margin-bottom: 15px;
   color: white;
 }
@@ -84,6 +84,7 @@ body {
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.1);
   color: white;
+  border: 1px solid #1e90ff;
   font-size: 1em;
 }
 
@@ -93,7 +94,7 @@ body {
 
 .input-field:focus {
   outline: none;
-  border: 1px solid #1e90ff;
+  border: 2px solid #1e90ff;
 }
 
 
@@ -114,7 +115,6 @@ body {
   transform: scale(1.1);
 }
 
-/* Forgot password link */
 .forgot {
   font-size: 0.9em;
 }
@@ -129,7 +129,6 @@ body {
   text-decoration: underline;
 }
 
-/* Submit/login button */
 .submit-btn {
   width: 100%;
   padding: 12px;
@@ -147,7 +146,6 @@ body {
   background-color: rgb(15, 1, 230);
 }
 
-/* Signup text */
 .text3 {
   padding-top: 20px;
 }
@@ -163,7 +161,12 @@ body {
   text-decoration: underline;
 }
 
-/* Responsive tweaks */
+.btn-section{
+    display: flex;
+    flex-direction: row;
+    gap: 296px;
+}
+
 @media (max-width: 500px) {
   .glass-card {
     padding: 20px;

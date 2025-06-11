@@ -8,6 +8,7 @@ import Register from './pages/register.jsx';
 import Sent from './pages/sent.jsx';
 import Dashboard from "./pages/register.jsx"
 import Login from "./pages/login.jsx"
+import Sign from './pages/sign.jsx';
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root')).render(
        <Route path="/sent" element={<Sent />} />
        <Route path="/dashboard" element={<Dashboard />} />
        <Route path="/login" element={<Login />} />
+       <Route path="/sign" element={<Sign />} />
     </Routes>
   </BrowserRouter>
 ); 

@@ -218,14 +218,18 @@ export default function app(props) {
 return (
   <div ref={ctnDom} className="aurora-container">
     <div className="txt">
-      <h1>welcome to Nugi Innovations</h1>
+      <h1 className='h1'>welcome to Nugi Innovations</h1>
       <p className='ptag'>Lets gets started</p>
  <div className='btn2'>
      <Link to="/login" className="clean-link">
      <button className='button'>login</button>
      </Link>
 
+<Link to="/signup" className='clean-link'>
 <button className='button'>signup</button>
+</Link>
+
+
   </div>
     </div>
  

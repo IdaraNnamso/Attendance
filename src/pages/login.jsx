@@ -17,7 +17,7 @@ const hexToRgb = (hex) => {
   return [r, g, b];
 };
 
-const vertex = /* glsl */ `
+const vertex =`
   attribute vec3 position;
   attribute vec4 random;
   attribute vec3 color;
@@ -52,7 +52,7 @@ const vertex = /* glsl */ `
   }
 `;
 
-const fragment = /* glsl */ `
+const fragment =  `
   precision highp float;
   
   uniform float uTime;
@@ -209,7 +209,7 @@ const Particles = ({
         container.removeChild(gl.canvas);
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, [
     particleCount,
     particleSpread,
@@ -231,7 +231,7 @@ const Particles = ({
   );
 }
 
-// Login page using Particles
+
 export default function Login() {
   return (
     <div className="login-page">
@@ -249,7 +249,7 @@ export default function Login() {
                     <p className="text3">Forgot password?</p>
                     </Link>
        <Link to="/" className="clean-link">
-             <p> <span> Sign up</span></p>
+             <p className="text3">  Sign up </p>
        </Link>  
   </div>
     
