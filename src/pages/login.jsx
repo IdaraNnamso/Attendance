@@ -248,7 +248,7 @@ export default function Login() {
                  <Link to="/" className="clean-link">
                     <p className="text3">Forgot password?</p>
                     </Link>
-       <Link to="/" className="clean-link">
+       <Link to="/sign" className="clean-link">
              <p className="text3">  Sign up </p>
        </Link>  
   </div>

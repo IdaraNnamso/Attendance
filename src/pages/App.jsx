@@ -225,7 +225,7 @@ return (
      <button className='button'>login</button>
      </Link>
 
-<Link to="/signup" className='clean-link'>
+<Link to="/sign" className='clean-link'>
 <button className='button'>signup</button>
 </Link>
 

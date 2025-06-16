@@ -1,0 +1,36 @@
+/* src/css/face.css */
+body {
+  margin: 0;
+  background-color: #111;
+  font-family: 'Segoe UI', sans-serif;
+  color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.face-page {
+  text-align: center;
+  background: #1a1a1a;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.video-box {
+  position: relative;
+  display: inline-block;
+  margin-top: 20px;
+}
+
+.video-stream {
+  border-radius: 8px;
+  border: 2px solid #61dafb;
+}
+
+.video-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
