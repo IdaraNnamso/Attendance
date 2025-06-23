@@ -1,20 +1,18 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom'; 
-import viteLogo from '/vite.svg';
-import '../css/dash.css';
 import Sidebar from '../components/sidebar';
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts';
+import '../css/sidebar.css';
+import '../css/dash.css';
 
-function App() {
-  const [User] = useState('Idara');
+export default function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const [summaryData] = useState({
+  const summaryData = {
     present: 215,
     late: 12,
     absent: 5,
-  });
+  };
 
-  const [recentAttendance] = useState([
+  const recentAttendance = [
     { name: 'Idara Nnamso', date: 'Mar 14, 2024', checkIn: '8:30 AM', checkOut: '5:15 AM', status: 'Present' },
     { name: 'Collins Emelumba', date: 'Mar 13, 2024', checkIn: '6:40 AM', checkOut: '8:15 AM', status: 'Present' },
     { name: 'Collins Echeng', date: 'Mar 12, 2024', checkIn: '8:45 AM', checkOut: '6:15 AM', status: 'Absent' },
@@ -23,21 +21,35 @@ function App() {
     { name: 'Cristiano Ronaldo', date: 'Mar 10, 2024', checkIn: '6:50 AM', checkOut: '5:45 PM', status: 'Present' },
     { name: 'Elon Musk', date: 'Mar 10, 2024', checkIn: '7:40 AM', checkOut: '4:20 PM', status: 'Late' },
     { name: 'Jun Young-Hyun', date: 'Mar 10, 2024', checkIn: '9:45 AM', checkOut: '8:20 AM', status: 'Present' },
-  ]);
+  ];
 
   return (
     <div className="dashboard-layout">
-      <Sidebar/>
+      <button
+        onClick={() => setMenuOpen(true)}
+        style={{
+          position: 'fixed',
+          top: 20,
+          left: 20,
+          zIndex: 1002,
+          background: '#0f017a',
+          color: 'white',
+          padding: '10px 15px',
+          border: 'none',
+          borderRadius: 5,
+          fontSize: 16,
+          cursor: 'pointer',
+        }}
+        aria-label="Open menu"
+      >
+        ☰
+      </button>
 
+      <Sidebar isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
       <main className="main-content">
         <header className="dashboard-header">
-          <h1>Attendance</h1>
-          {/* <Link to="/profile" className="user-icon-link">
-  <div className="user-icon"></div>
-</Link> */}
-      
-        
+          <h1 className='head1'>Attendance</h1>
         </header>
 
         <section className="summary-cards">
@@ -65,9 +77,7 @@ function App() {
                   <td>{record.date}</td>
                   <td>{record.checkIn}</td>
                   <td>{record.checkOut}</td>
-                   <td>{record.checkOut}</td>
-                  <td>
-                  </td>
+                  <td>{record.status}</td>
                 </tr>
               ))}
             </tbody>
@@ -77,5 +87,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

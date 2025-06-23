@@ -1,25 +1,25 @@
-import { FaMessage } from 'react-icons/fa6';
-import '../components/sidebar.css';
 import { FaHome, FaUserPlus, FaDatabase, FaCamera } from 'react-icons/fa';
+import '../css/sidebar.css';
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, onClose }) {
+  const handleLinkClick = () => {
+    if (onClose) onClose();
+  };
+
   return (
-    <aside className="sidebar">
-      <h2 className="sidebar-title">Nugi Attendance</h2>
-      <nav className="sidebar-nav">
-        <a href="/" className="sidebar-link">
-          <FaHome /> <span>Dashboard</span>
-        </a>
-        <a href="/register" className="sidebar-link">
-          <FaUserPlus /> <span>Register</span>
-        </a>
-        <a href="#" className="sidebar-link">
-          <FaCamera /> <span>Take Attendance</span>
-        </a>
-        <a href="#" className="sidebar-link">
-          <FaDatabase /> <span>Records</span>
-        </a>
-      </nav>
-    </aside>
+    <>
+      {isOpen && <div className="sidebar-overlay" onClick={onClose} />}
+      
+      <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
+        <button className="close-btn" onClick={onClose}>✖</button>
+        <h2 className="sidebar-title">Nugi attendance</h2>
+        <nav className="sidebar-nav">
+          <a href="/dashboard" className="sidebar-link" onClick={handleLinkClick}><FaHome /> <span>Dashboard</span></a>
+          <a href="/register" className="sidebar-link" onClick={handleLinkClick}><FaUserPlus /> <span>Register</span></a>
+          <a href="#" className="sidebar-link" onClick={handleLinkClick}><FaCamera /> <span>Scan</span></a>
+          <a href="#" className="sidebar-link" onClick={handleLinkClick}><FaDatabase /> <span>Records</span></a>
+        </nav>
+      </aside>
+    </>
   );
 }
