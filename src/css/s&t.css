@@ -1,0 +1,44 @@
+.split-screen {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  font-family: sans-serif;
+}
+
+.left-side, .right-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+  color: white;
+}
+
+.left-side {
+    width: 1374px;
+}
+
+.right-side {
+    position: relative;
+   background: url('https://i.pinimg.com/originals/41/82/a9/4182a9dd330c6442c4a1fbc78274d838.png') no-repeat center center/cover;
+}
+
+.left-side:hover, .right-side:hover {
+  opacity: 0.85;
+  transform: scale(1.02);
+}
+
+.left-side {
+  position: relative;
+  background: url('https://univ-journal.jp/wp-content/uploads/2021/10/pixta_74141807_M.jpg') no-repeat center center/cover;
+}
+
+
+
+
+.left-side h2 {
+  position: relative;
+  z-index: 2;
+}

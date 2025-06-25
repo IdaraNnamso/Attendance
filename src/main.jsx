@@ -12,7 +12,10 @@ import Login from './pages/login.jsx';
 import Face from './pages/face.jsx'; 
 import Sign from './pages/sign.jsx';
 import Menu from './pages/menu.jsx';
-
+import Sat from './pages/s&t.jsx';
+import Sign2 from './pages/sign2.jsx';
+import Profile from './pages/profile.jsx';
+import Attendance from './pages/attendance.jsx';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -24,6 +27,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/face" element={<Face />} /> 
         <Route path="/sign" element={<Sign />} />
         <Route path="/menu" element={<Menu />} />
+        <Route path="/sat" element={<Sat />} />
+        <Route path="/sign2" element={<Sign2 />} />
+        <Route path="/profile" element={<Profile />} />
+          <Route path="/attendance" element={<Attendance />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

@@ -221,11 +221,11 @@ return (
       <h1 className='h1'>welcome to Nugi Innovations</h1>
       <p className='ptag'>Lets gets started</p>
  <div className='btn2'>
-     <Link to="/login" className="clean-link">
+     <Link to="/sat" className="clean-link">
      <button className='button'>login</button>
      </Link>
 
-<Link to="/sign" className='clean-link'>
+<Link to="/sat" className='clean-link'>
 <button className='button'>signup</button>
 </Link>
 

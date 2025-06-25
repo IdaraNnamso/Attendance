@@ -1,4 +1,4 @@
-import { FaHome, FaUserPlus, FaDatabase, FaCamera } from 'react-icons/fa';
+import { FaHome, FaUserPlus, FaDatabase, FaCamera, FaUsers, FaCalendarAlt, FaMoneyBillWave, FaChartBar, FaEnvelope, FaCog, FaSignOutAlt } from 'react-icons/fa';
 import '../css/sidebar.css';
 
 export default function Sidebar({ isOpen, onClose }) {
@@ -6,18 +6,32 @@ export default function Sidebar({ isOpen, onClose }) {
     if (onClose) onClose();
   };
 
+  const navItems = [
+    { icon: FaHome, label: 'Dashboard', path: '/menu', active: true }, 
+    { icon: FaCalendarAlt, label: 'Attendance', path: '/attendance', active: false }, 
+    { icon: FaEnvelope, label: 'Messages', path: '#', active: false },
+    { icon: FaCamera, label: 'Take Attendace', path: '/face', active: false },
+    { icon: FaCog, label: 'Settings', path: '#', active: false }, 
+  ];
+
   return (
     <>
       {isOpen && <div className="sidebar-overlay" onClick={onClose} />}
-      
+
       <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
-        <button className="close-btn" onClick={onClose}>✖</button>
-        <h2 className="sidebar-title">Nugi attendance</h2>
+        <button className="sidebar-close-btn" onClick={onClose}>✖</button>
+       
         <nav className="sidebar-nav">
-          <a href="/dashboard" className="sidebar-link" onClick={handleLinkClick}><FaHome /> <span>Dashboard</span></a>
-          <a href="/register" className="sidebar-link" onClick={handleLinkClick}><FaUserPlus /> <span>Register</span></a>
-          <a href="#" className="sidebar-link" onClick={handleLinkClick}><FaCamera /> <span>Scan</span></a>
-          <a href="#" className="sidebar-link" onClick={handleLinkClick}><FaDatabase /> <span>Records</span></a>
+          <ul>
+            {navItems.map((item, index) => (
+              <li key={index} className={item.active ? 'active' : ''}>
+                <a href={item.path} className="sidebar-nav-link" onClick={handleLinkClick}>
+                  <item.icon className="nav-icon" /> 
+                  <span className="nav-label">{item.label}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </nav>
       </aside>
     </>

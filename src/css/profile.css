@@ -1,0 +1,412 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.profile-section h2 {
+    font-size: 2.8em;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.profile-section .profile-subtitle {
+    font-size: 1.1em;
+    color: #777;
+    margin-bottom: 30px;
+}
+
+.profile-card {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    padding: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.profile-left {
+    flex: 0 0 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-right: 40px;
+    border-right: 1px solid #eee;
+}
+
+@media (max-width: 900px) {
+    .profile-left {
+        flex-basis: 100%;
+        border-right: none;
+        padding-right: 0;
+        padding-bottom: 25px;
+        border-bottom: 1px solid #eee;
+    }
+}
+
+.profile-image-wrapper {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 25px;
+    border: 5px solid #007bff;
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.profile-image-wrapper:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 123, 255, 0.4);
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.user-name {
+    font-size: 2.5em;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-weight: 800;
+}
+
+.premium-t {
+    background-color: #f7e1b5;
+    color: #b58100;
+    padding: 8px 18px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 0.95em;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.profile-right {
+    flex-grow: 1;
+    padding-left: 40px;
+}
+@media (max-width: 900px) {
+    .profile-right {
+        padding-left: 0;
+    }
+}
+
+
+.details-heading {
+    font-size: 1.8em;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-weight: 700;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px 40px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+}
+
+.detail-label {
+    font-size: 0.95em;
+    color: #888;
+    margin-bottom: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.detail-value {
+    font-size: 1.2em;
+    color: #333;
+    font-weight: 700;
+}
+
+.availability-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    color: #4CAF50;
+}
+
+.status-dot {
+    width: 14px;
+    height: 14px;
+    background-color: #4CAF50;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.25);
+}
+
+.badge {
+    background-color: #e3f2fd;
+    color: #2196F3;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9em;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.15);
+}
+.badge-icon {
+    font-size: 1.1em;
+}
+
+.tags {
+    color: #555;
+    font-weight: 500;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.tags span {
+    display: inline-block;
+    background-color: #f0f0f0;
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-size: 0.95em;
+    color: #666;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+.tags span:hover {
+    background-color: #e0e0e0;
+}
+
+
+.programming-languages-section {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    padding: 30px;
+    text-align: center;
+}
+
+.programming-languages-section h4 {
+    font-size: 1.8em;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-weight: 700;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.language-icons-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
+.language-icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.language-icon-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.language-icon-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 18px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    background-color: #f8f8f8;
+    padding: 10px;
+}
+
+.language-name {
+    font-size: 1.15em;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 15px;
+    }
+    .profile-section h2 {
+        font-size: 2em;
+    }
+    .profile-section .profile-subtitle {
+        font-size: 1em;
+    }
+    .profile-card {
+        padding: 20px;
+        gap: 20px;
+    }
+    .profile-left {
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+    }
+    .profile-image-wrapper {
+        width: 120px;
+        height: 120px;
+    }
+    .user-name {
+        font-size: 2em;
+    }
+    .details-heading {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+    }
+    .details-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    .detail-label, .detail-value {
+        font-size: 0.95em;
+    }
+    .programming-languages-section {
+        padding: 20px;
+    }
+    .programming-languages-section h4 {
+        font-size: 1.4em;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+    }
+    .language-icons-container {
+        gap: 20px;
+    }
+    .language-icon-img {
+        width: 70px;
+        height: 70px;
+        border-radius: 10px;
+    }
+    .language-name {
+        font-size: 0.9em;
+    }
+}
+
+
+body.dark {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+}
+
+
+
+body.dark .profile-section h2,
+body.dark .profile-section .profile-subtitle,
+body.dark .user-name,
+body.dark .details-heading,
+body.dark .detail-value,
+body.dark .detail-label,
+body.dark .availability-status,
+body.dark .programming-languages-section h4,
+body.dark .language-name {
+    color: #f0f0f0;
+}
+
+body.dark .profile-card,
+body.dark .programming-languages-section {
+    background-color: #1e1e1e;
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.05);
+}
+body.dark .profile-card:hover,
+body.dark .language-icon-item:hover {
+    box-shadow: 0 12px 25px rgba(255, 255, 255, 0.08);
+}
+
+
+body.dark .profile-left {
+    border-right-color: #333;
+}
+@media (max-width: 900px) {
+    body.dark .profile-left {
+        border-bottom-color: #333;
+    }
+}
+
+body.dark .profile-image-wrapper {
+    border-color: #90caf9;
+    box-shadow: 0 6px 20px rgba(144, 202, 249, 0.2);
+}
+body.dark .profile-image-wrapper:hover {
+    box-shadow: 0 10px 30px rgba(144, 202, 249, 0.3);
+}
+
+body.dark .premium-t {
+    background-color: #6a4b00;
+    color: #ffd54f;
+}
+
+body.dark .details-heading {
+    border-bottom-color: #333;
+}
+
+body.dark .detail-label {
+    color: #bbb;
+}
+
+body.dark .status-dot {
+    background-color: #66bb6a;
+    box-shadow: 0 0 0 4px rgba(102, 187, 106, 0.25);
+}
+body.dark .availability-status {
+    color: #66bb6a;
+}
+
+body.dark .badge {
+    background-color: #0d47a1;
+    color: #bbdefb;
+    box-shadow: 0 2px 8px rgba(13, 71, 161, 0.15);
+}
+
+body.dark .tags span {
+    background-color: #2a2a2a;
+    color: #ccc;
+}
+body.dark .tags span:hover {
+    background-color: #3a3a3a;
+}
+
+body.dark .programming-languages-section h4 {
+    border-bottom-color: #333;
+}
+body.dark .language-icon-img {
+    background-color: #2a2a2a;
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.05);
+}
