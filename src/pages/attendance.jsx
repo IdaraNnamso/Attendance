@@ -39,51 +39,10 @@ const recentAttendanceData = [
     timeOut: '-',
     status: 'Absent',
   },
-  {
-    id: 4,
-    name: 'Diana Prince',
-    profileImg: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQRdQ6WOe65-6NIVOkmyAQidFlmL40mJZsww&s',
-    course: 'Cybersecurity Essentials',
-    date: '2025-06-23',
-    timeIn: '08:59 AM',
-    timeOut: '04:05 PM',
-    status: 'Present',
-  },
-  {
-    id: 5,
-    name: 'Eve Adams',
-    profileImg: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFQLcJ1qnAUVtgFqNmazjnyycV4_X-Zg2xxw&s',
-    course: 'Mobile App Development',
-    date: '2025-06-23',
-    timeIn: '09:02 AM',
-    timeOut: '03:58 PM',
-    status: 'Present',
-  },
-  {
-    id: 6,
-    name: 'Frank Green',
-    profileImg: 'https://ichef.bbci.co.uk/ace/standard/981/cpsprodpb/5c38/live/16192430-f5ef-11ef-bd6e-cd71c2e1454a.jpg',
-    course: 'Artificial Intelligence',
-    date: '2025-06-23',
-    timeIn: '-',
-    timeOut: '-',
-    status: 'Absent',
-  },
-  {
-    id: 7,
-    name: 'Grace Hall',
-    profileImg: 'https://s.hs-data.com/bilder/spieler/gross/182941.jpg?fallback=png',
-    course: 'Game Design Principles',
-    date: '2025-06-23',
-    timeIn: '09:05 AM',
-    timeOut: '04:02 PM',
-    status: 'Late',
-  },
 ];
 
 export default function RecentAttendance() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
   const getStatusIcon = (status) => {
@@ -108,6 +67,7 @@ export default function RecentAttendance() {
     <div className="dashboard-layout">
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       {sidebarOpen && <div className="overlay" onClick={() => setSidebarOpen(false)}></div>}
+
       <div className={`content-area ${sidebarOpen ? 'with-sidebar-open' : ''}`}>
         <div className="dashboard-header">
           <button className="menu-toggle-button" onClick={toggleSidebar}>☰</button>
@@ -143,10 +103,10 @@ export default function RecentAttendance() {
                 <thead>
                   <tr>
                     <th>Student Name</th>
-                    <th>Course</th>
+                    <th className="hide-mobile">Course</th>
                     <th>Date</th>
                     <th>Time In</th>
-                    <th>Time Out</th>
+                    <th className="hide-mobile">Time Out</th>
                     <th>Status</th>
                   </tr>
                 </thead>
@@ -157,10 +117,10 @@ export default function RecentAttendance() {
                         <img src={record.profileImg} alt={record.name} className="student-profile-img" />
                         <span className="student-name">{record.name}</span>
                       </td>
-                      <td>{record.course}</td>
+                      <td className="hide-mobile">{record.course}</td>
                       <td><Calendar size={16} className="table-icon" /> {record.date}</td>
                       <td><Clock size={16} className="table-icon" /> {record.timeIn}</td>
-                      <td><Clock size={16} className="table-icon" /> {record.timeOut}</td>
+                      <td className="hide-mobile"><Clock size={16} className="table-icon" /> {record.timeOut}</td>
                       <td>
                         <span className={`status-badge status-${record.status.toLowerCase()}`}>
                           {getStatusIcon(record.status)} {record.status}
