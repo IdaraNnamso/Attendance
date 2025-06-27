@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from '../components/sidebar';
 import '../css/messaage.css';
 import '../css/dash.css';
+import '../pages/profile';
 import Nugi from '../assets/NI.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faBell, faUserCircle } from '@fortawesome/free-solid-svg-icons';
@@ -124,7 +125,10 @@ export default function Messaage() {
           </div>
           <div className="header-right">
             <span className="current-date">{getCurrentDate()}</span>
+            <Link to='/message'>
             <FontAwesomeIcon icon={faBell} className="header-icon" />
+            </Link>
+            
             <Link to="/profile">
               <FontAwesomeIcon icon={faUserCircle} className="header-icon" />
             </Link>

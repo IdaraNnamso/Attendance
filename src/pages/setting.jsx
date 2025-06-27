@@ -104,7 +104,9 @@ export default function Setting() {
           </div>
           <div className="header-right">
             <span className="current-date">{getCurrentDate()}</span>
+            <Link to='/message'>
             <FontAwesomeIcon icon={faBell} className="header-icon" />
+            </Link>
             <Link to="/profile">
               <FontAwesomeIcon icon={faUserCircle} className="header-icon" />
             </Link>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Sidebar from '../components/sidebar';
 import '../css/attendance.css';
+import '../pages/profile'
 import '../css/dash.css';
 import Nugi from '../assets/NI.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -82,8 +83,11 @@ export default function RecentAttendance() {
           </div>
           <div className="header-right">
             <span className="current-date">{getCurrentDate()}</span>
-            <FontAwesomeIcon icon={faBell} className="header-icon" />
-            <Link to="/settings">
+            <Link to='/message'>
+             <FontAwesomeIcon icon={faBell} className="header-icon" />
+            </Link>
+           
+            <Link to="/profile">
               <FontAwesomeIcon icon={faUserCircle} className="header-icon" />
             </Link>
           </div>
