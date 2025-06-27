@@ -4,7 +4,7 @@
     left: 0;
     width: var(--width-mobile);
     height: 100vh;
-    background-color: var(--sidebar-bg);
+    background-color: #2e1b5e;
     color: var(--sidebar-text-color);
     z-index: 1050;
     transform: translateX(-100%);

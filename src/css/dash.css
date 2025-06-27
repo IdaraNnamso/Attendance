@@ -318,7 +318,7 @@ body {
 }
 
 .welcome-card {
-  background-color: var(--sidebar-bg);
+  background-color:#2e1b5e;
   color: white;
   padding: 25px;
   border-radius: 8px;
