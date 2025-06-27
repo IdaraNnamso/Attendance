@@ -1,105 +1,148 @@
-/* Variables for Sidebar dimensions (ensure these are set in your primary CSS or passed correctly) */
-/* Assuming these variables are defined in :root somewhere that `dash-css-main` can access,
-   e.g., in a shared styles file or at the top of this file if this is your main CSS. */
 :root {
-    --width-collapsed-desktop: 70px; /* Slimmer collapsed width */
-    --width-expanded-desktop: 200px; /* Slimmer expanded width */
-    --width-mobile: 200px; /* Mobile sidebar width (can be adjusted if needed) */
-    --sidebar-bg: #0f017a; /* Dark blue background */
-    --sidebar-text-color: #e0e0e0; /* Light grey text for contrast */
-    --sidebar-link-inactive: #aeb8c4; /* Inactive link color */
-    --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.15); /* Enhanced subtle shadow */
-    --shadow-mobile: 0 8px 25px rgba(0, 0, 0, 0.3); /* Deeper shadow for mobile */
-    --transition-speed: 0.3s;
-    --transition-ease: ease-in-out; /* Smoother transitions */
+  --width-collapsed-desktop: 70px;
+  --width-expanded-desktop: 200px;
+  --width-mobile: 200px;
+  --sidebar-bg: #0f017a;
+  --sidebar-text-color: #e0e0e0;
+  --sidebar-link-inactive: #aeb8c4;
+  --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-mobile: 0 8px 25px rgba(0, 0, 0, 0.3);
+  --transition-speed: 0.3s;
+  --transition-ease: ease-in-out;
 }
 
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 .dashboard-layout {
-  display: flex; /* Establishes a flex container for the sidebar and content */
-  min-height: 100vh; /* Ensures it takes at least the full viewport height */
+  display: flex;
+  min-height: 100vh;
   background-color: #f0f2f5;
-  width: 100%; /* Ensure it occupies full width */
+  width: 100%;
+  position: relative;
 }
 
-/* Styles for the main content area, which sits next to the sidebar */
+.menu-toggle-button {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1002;
+  background-color: var(--sidebar-bg);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 24px;
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .menu-toggle-button {
+    display: block;
+  }
+}
+
 .content-area {
-  flex-grow: 1; /* Allows content area to take up remaining space */
+  flex-grow: 1;
   display: grid;
-  grid-template-rows: auto 1fr; /* Header row, then main content row */
+  grid-template-rows: auto 1fr;
   grid-template-columns: 1fr;
-  gap: 20px; /* Gap between grid items */
-  padding: 20px; /* Padding around the content area */
-  transition: margin-left 0.3s ease; /* Smooth transition for sidebar open/close */
-  box-sizing: border-box; /* Include padding in element's total width/height */
-  overflow-y: auto; /* Allow content area to scroll independently */
+  gap: 20px;
+  padding: 20px;
+  transition: margin-left var(--transition-speed) var(--transition-ease);
+  box-sizing: border-box;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1;
+  width: 100%;
 }
 
-/* Desktop Styles (for screens wider than 1024px) */
 @media (min-width: 1024px) {
   .content-area {
-    /* Pushes the content area to the right, creating space for the fixed sidebar.
-       This margin should match the sidebar's width. */
     margin-left: var(--width-collapsed-desktop);
-    grid-template-columns: 3fr 1fr; /* Main content wider, right sidebar narrower */
-    grid-template-rows: auto 1fr;
     grid-template-areas:
       "header header"
       "main right-sidebar";
   }
 
-  /* Adjust content-area margin when sidebar expands on hover */
-  /* This requires JavaScript to add a class to body or dashboard-layout on sidebar hover */
-  /* If .sidebar:hover is used, make sure .content-area is an adjacent sibling (+) for this to work */
   .sidebar:hover + .content-area {
-      margin-left: var(--width-expanded-desktop);
+    margin-left: var(--width-expanded-desktop);
   }
 }
 
-/* Mobile/Tablet Styles (for screens up to 1023px wide) */
 @media (max-width: 1023px) {
   .content-area {
-    margin-left: 0; /* No left margin on mobile, sidebar will overlay */
-    padding: 15px; /* Adjust padding for mobile */
+    margin-left: 0;
+    padding: 15px;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "main";
   }
-  /* When sidebar is explicitly open on mobile, push content to the right.
-     This class needs to be toggled by JavaScript when the mobile sidebar opens. */
-  .content-area.with-sidebar {
+
+  .content-area.with-sidebar-open {
     margin-left: var(--width-mobile);
-    position: absolute; /* Prevent content from reflowing underneath */
-    width: calc(100% - var(--width-mobile)); /* Adjust width */
-    height: 100%; /* Take full height */
-    overflow-y: auto; /* Allow scrolling */
+    position: fixed;
+    width: calc(100% - var(--width-mobile));
+    height: 100%;
+    overflow-y: auto;
+    top: 0;
+    left: 0;
+    background: #f0f2f5;
+    box-shadow: var(--shadow-mobile);
+    border-radius: 0 0 0 8px;
+    z-index: 1001;
   }
 }
 
-/* Dashboard Header */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  cursor: pointer;
+  display: none;
+}
+
+.content-area.with-sidebar-open + .overlay {
+  display: block;
+}
+
 .dashboard-header {
   grid-area: header;
   display: flex;
-  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
-  padding: 10px 15px; /* Reduced padding */
+  padding: 10px 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   margin-bottom: 20px;
+  z-index: 10;
 }
 
 .header-left {
   display: flex;
   align-items: center;
-  gap: 10px; /* Reduced gap */
-  flex-grow: 1; /* Allow left section to grow */
+  gap: 10px;
+  flex-grow: 1;
+  min-width: 0;
 }
 
-.header-logo {
-  width: 40px; /* Slightly smaller logo */
-  height: 40px; /* Slightly smaller logo */
-  object-fit: contain;
-  border-radius: 8px;
-  margin-bottom: 5px; /* Reduced padding below the logo */
+.hr-logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--sidebar-bg);
+  white-space: nowrap;
 }
 
 .search-bar {
@@ -107,64 +150,108 @@
   align-items: center;
   background-color: #f8f8f8;
   border-radius: 20px;
-  padding: 6px 12px; /* Reduced padding */
-  width: 100%; /* Make search bar full width within its container */
-  max-width: 250px; /* Slightly reduced max width for search bar */
+  padding: 6px 12px;
+  width: 100%;
+  max-width: 250px;
 }
 
 .search-bar input {
   border: none;
   background: none;
   outline: none;
-  margin-left: 8px; /* Reduced margin */
+  margin-left: 8px;
   font-size: 14px;
   flex-grow: 1;
+  min-width: 0;
 }
 
 .header-right {
   display: flex;
   align-items: center;
-  gap: 15px; /* Reduced gap */
+  gap: 15px;
   color: #555;
-  margin-top: 5px; /* Reduced margin for wrapping on mobile */
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+.current-date {
+  font-size: 14px;
+  white-space: nowrap;
 }
 
 @media (min-width: 768px) {
   .header-right {
-    margin-top: 0; /* Remove top margin on larger screens */
+    margin-top: 0;
   }
 }
 
+@media (max-width: 600px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px;
+  }
 
-.header-icon {
-  font-size: 18px; /* Slightly smaller icon */
-  cursor: pointer;
-  color: #777;
+  .header-left {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .hr-logo {
+    font-size: 20px;
+  }
+
+  .search-bar {
+    max-width: 100%;
+    margin-top: 10px;
+    padding: 5px 10px;
+  }
+
+  .search-bar input {
+    font-size: 13px;
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 13px;
+  }
+
+  .header-icon {
+    font-size: 16px;
+  }
 }
 
-/* Main Content Area Grid Sections */
 .main-content {
   grid-area: main;
   display: grid;
   gap: 20px;
-  grid-template-columns: 1fr; /* Default to single column on smaller screens */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
-@media (min-width: 768px) {
+@media (max-width: 767px) {
   .main-content {
-    /* Auto-fit columns, minimum 300px width for cards */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
 }
 
-/* Right Sidebar */
 .right-sidebar {
   grid-area: right-sidebar;
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  overflow-y: auto; /* Allow scrolling for the right sidebar content */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  overflow-y: auto;
+  transition: opacity 0.3s ease;
+}
+
+@media (max-width: 1023px) {
+  .right-sidebar {
+    display: none;
+  }
 }
 
 .right-sidebar h3 {
@@ -178,8 +265,9 @@
 
 .right-sidebar .view-all {
   font-size: 14px;
-  color: #0f017a;
+  color: var(--sidebar-bg);
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .activity-list {
@@ -212,33 +300,25 @@
 }
 
 .activity-item strong {
-  color: #0f017a;
+  color: var(--sidebar-bg);
 }
 
-/* Universal Card Styling */
 .card {
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-subtle);
   padding: 20px;
 }
 
-/* Specific Card Styles */
 .welcome-section {
-  grid-column: span 2; /* Spans two columns in the main content grid */
+  grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 20px;
 }
 
-@media (max-width: 900px) {
-    .welcome-section {
-        grid-template-columns: 1fr; /* Single column on smaller screens */
-    }
-}
-
 .welcome-card {
-  background-color: #0f017a;
+  background-color: var(--sidebar-bg);
   color: white;
   padding: 25px;
   border-radius: 8px;
@@ -250,6 +330,18 @@
 .welcome-card h2 {
   margin-top: 0;
   font-size: 28px;
+  word-break: break-word;
+}
+
+@media (max-width: 480px) {
+  .welcome-card h2 {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  .welcome-card {
+    padding: 15px;
+  }
 }
 
 .announcement-stats {
@@ -267,6 +359,7 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 15px;
+  white-space: nowrap;
 }
 
 .stat-item {
@@ -278,10 +371,10 @@
 }
 
 .new-resume {
-    background-color: #4CAF50;
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-weight: bold;
+  background-color: #4CAF50;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: bold;
 }
 
 .employee-manage-card {
@@ -289,6 +382,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 
 .employee-manage-card h3 {
@@ -298,15 +392,23 @@
 
 .employee-chart-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 20px;
   width: 100%;
 }
 
+@media (min-width: 600px) {
+  .employee-chart-container {
+    flex-direction: row;
+  }
+}
+
 .chart-wrapper {
   width: 150px;
   height: 150px;
+  flex-shrink: 0;
 }
 
 .employee-stats p {
@@ -328,21 +430,17 @@
 .dot.remote { background-color: #FFC107; }
 .dot.off-duty { background-color: #F44336; }
 
-
 .attendance-summary-charts {
-  grid-column: span 2;
+  grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr;
   gap: 20px;
 }
 
-@media (max-width: 900px) {
-    .attendance-summary-charts {
-        grid-template-columns: 1fr;
-    }
-}
-
-.real-time-attendance-chart {
+@media (min-width: 768px) {
+  .attendance-summary-charts {
+    grid-template-columns: 2fr 1fr;
+  }
 }
 
 .summary-percentages {
@@ -370,23 +468,108 @@
 }
 
 .attendance-table {
-  grid-column: span 2;
+  grid-column: 1 / -1;
+  overflow-x: auto;
 }
 
 .attendance-table table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 15px;
+  min-width: 600px;
 }
 
-.attendance-table th, .attendance-table td {
+.attendance-table th,
+.attendance-table td {
   border: 1px solid #eee;
   padding: 10px;
   text-align: left;
+  white-space: nowrap;
 }
 
 .attendance-table th {
   background-color: #f8f8f8;
   font-weight: bold;
   color: #555;
+}
+
+@media (max-width: 480px) {
+  .content-area {
+    padding: 10px;
+  }
+
+  .dashboard-header {
+    padding: 8px;
+    margin-bottom: 15px;
+  }
+
+  .hr-logo {
+    font-size: 18px;
+  }
+
+  .search-bar {
+    padding: 4px 8px;
+  }
+
+  .search-bar input {
+    font-size: 12px;
+  }
+
+  .current-date {
+    font-size: 12px;
+  }
+
+  .header-icon {
+    font-size: 15px;
+  }
+
+  .welcome-card {
+    padding: 15px;
+  }
+
+  .welcome-card h2 {
+    font-size: 18px;
+    line-height: 1.2;
+  }
+
+  .add-announcement-btn {
+    font-size: 13px;
+    padding: 7px 10px;
+  }
+
+  .stat-item {
+    font-size: 13px;
+  }
+
+  .new-resume {
+    padding: 8px 12px;
+  }
+
+  .employee-manage-card h3 {
+    font-size: 20px;
+  }
+
+  .chart-wrapper {
+    width: 120px;
+    height: 120px;
+  }
+
+  .employee-stats p {
+    font-size: 12px;
+  }
+
+  .summary-percentages li {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  .attendance-table th,
+  .attendance-table td {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .activity-item p {
+    font-size: 13px;
+  }
 }

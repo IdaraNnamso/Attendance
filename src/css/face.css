@@ -1,11 +1,10 @@
 
 
-/* Container for the main face scanning page */
+
 .face-page {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center children (h1, p, video-box) horizontally within face-page */
-    /* Removed justify-content for face-page itself to prevent squishing content if it grows tall */
+    align-items: center;
     padding: 20px;
     width: 100%; /* Take full width on smaller screens */
     max-width: 800px; /* Limit max width on larger screens */

@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-/* --- Base Styles & Layout Reset --- */
 body {
     margin: 0;
     padding: 0;
@@ -14,26 +13,6 @@ body {
     overflow-x: hidden;
 }
 
-/* --- Main Page Layout Container --- */
-.attendance-layout {
-    display: flex;
-    min-height: 100vh;
-    width: 100%;
-}
-
-
-
-/* --- Content Area Layout --- */
-.attendance-content-area {
-    flex-grow: 1;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    /* Removed margin-left as sidebar is no longer managed by this CSS */
-    transition: margin-left 0.3s ease;
-}
-
-/* Container inside content area, responsible for max-width and horizontal centering */
 .attendance-page-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -41,7 +20,6 @@ body {
     box-sizing: border-box;
 }
 
-/* --- Main Content Section Styling --- */
 .attendance-page-title {
     font-size: 2.8em;
     color: #333;
@@ -113,7 +91,8 @@ body {
     min-width: 700px;
 }
 
-.attendance-table-card th, .attendance-table-card td {
+.attendance-table-card th,
+.attendance-table-card td {
     padding: 15px 20px;
     text-align: left;
     font-size: 0.98em;
@@ -135,18 +114,35 @@ body {
     letter-spacing: 0.5px;
     font-size: 0.9em;
 }
-.attendance-table-card th:first-child { border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
-.attendance-table-card th:last-child { border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
+
+.attendance-table-card th:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.attendance-table-card th:last-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
 
 .attendance-table-card tbody tr {
     transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
+
 .attendance-table-card tbody tr:hover {
     background-color: #f0f2f5;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
-.attendance-table-card tbody tr td:first-child { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
-.attendance-table-card tbody tr td:last-child { border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
+
+.attendance-table-card tbody tr td:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.attendance-table-card tbody tr td:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
 
 .student-profile-cell {
     display: flex;
@@ -201,10 +197,61 @@ body {
     color: #fbc02d;
 }
 
-/* --- Responsive Adjustments --- */
-@media (min-width: 1024px) {
-  .attendance-content-area {
-    /* Removed margin-left as sidebar is no longer managed by this CSS */
-  }
+@media (max-width: 768px) {
+    .attendance-page-title {
+        font-size: 2.2em;
+    }
+    .attendance-page-subtitle {
+        font-size: 1em;
+    }
+    .attendance-table-card {
+        padding: 15px;
+        width: 390px;
+    }
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .card-header h3 {
+        font-size: 1.2em;
+    }
+    .view-all-btn {
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .attendance-table-card th,
+    .attendance-table-card td {
+        padding: 12px 15px;
+        font-size: 0.9em;
+    }
+    .student-profile-img {
+        width: 35px;
+        height: 35px;
+    }
+    .status-badge {
+        padding: 6px 10px;
+        font-size: 0.8em;
+    }
+    .attendance-page-container {
+        overflow-x: hidden;
+    }
 }
 
+@media (max-width: 480px) {
+    .attendance-page-container {
+        overflow-x: hidden;
+    }
+    .attendance-page-title {
+        font-size: 1.8em;
+    }
+    .attendance-table-card {
+        padding: 10px;
+        position: fixed;
+        border-radius: 10px;
+    }
+    .attendance-table-card table {
+        min-width: 200px;
+    }
+}

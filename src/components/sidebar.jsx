@@ -9,9 +9,9 @@ export default function Sidebar({ isOpen, onClose }) {
   const navItems = [
     { icon: FaHome, label: 'Dashboard', path: '/menu', active: true }, 
     { icon: FaCalendarAlt, label: 'Attendance', path: '/attendance', active: false }, 
-    { icon: FaEnvelope, label: 'Messages', path: '#', active: false },
+    { icon: FaEnvelope, label: 'Messages', path: '/message', active: false },
     { icon: FaCamera, label: 'Take Attendace', path: '/face', active: false },
-    { icon: FaCog, label: 'Settings', path: '#', active: false }, 
+    { icon: FaCog, label: 'Settings', path: '/setting', active: false }, 
   ];
 
   return (

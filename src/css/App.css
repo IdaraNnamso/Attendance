@@ -1,100 +1,252 @@
-
-.aurora-container {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  background-color: black;
-  position: relative; 
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.txt {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
+.entry-page {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #111827;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.branding-panel {
+  width: 100%;
+  background-color: rgba(76, 29, 149, 0.5); 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.branding-logo {
+  height: 50px; 
+  width: auto;
+  margin-bottom: 2rem;
+  align-self: flex-start; 
+}
+
+.branding-content {
   text-align: center;
-  z-index: 10;
-  font-family:;
-  font-size: 30px;
+}
+
+.branding-heading {
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.branding-subheading {
+  font-size: 1.125rem;
+  color: rgba(221, 214, 254, 0.8);
+}
+
+.branding-footer {
+  text-align: center;
+  font-size: 0.75rem;
+  color: rgba(196, 181, 253, 0.6);
+  margin-top: 2rem;
 }
 
 
-.ptag{
-  color: #fff;
-}
-
-/* From Uiverse.io by gharsh11032000 */ 
-.button {
-  position: relative;
-  width: 120px;
-  height: 40px;
-  background-color: #000;
+.form-panel {
+  width: 100%;
   display: flex;
   align-items: center;
-  color: white;
-  flex-direction: column;
   justify-content: center;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 28rem;
+}
+
+.form-container {
+  width: 100%;
+}
+
+.form-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.form-subtitle {
+  color: #9CA3AF;
+  margin-bottom: 2rem;
+}
+
+.input-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  display: block;
+  color: #D1D5DB;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background-color: #374151;
+  border: 1px solid #4B5563;
+  color: #ffffff;
+  box-sizing: border-box;
+}
+
+.form-input::placeholder {
+    color: #9ca3af;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #8B5CF6;
+}
+
+.form-link-forgot {
+  font-size: 0.75rem;
+  color: #A78BFA;
+  float: right;
+  margin-top: 0.5rem;
+  text-decoration: none;
+}
+
+.form-link-forgot:hover {
+  color: #C4B5FD;
+}
+
+.button-group {
+  margin-top: 2rem;
+}
+
+.button-group > a {
+    text-decoration: none;
+}
+
+.btn {
+  width: 100%;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
   border: none;
-  padding: 12px;
-  gap: 12px;
-  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.button::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  left: -4px;
-  top: -1px;
-  margin: auto;
-  width: 128px;
-  height: 48px;
-  border-radius: 10px;
-  background: linear-gradient(-45deg, #509d4d 0%, #40c9ff 100% );
-  backdrop-filter:blur(50px) ;
-  z-index: -10;
-  pointer-events: none;
-  transition: all 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-/* 
-.button::after {
-  content: "";
-  z-index: -1;
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100% );
-  transform: translate3d(0, 0, 0) scale(0.95);
-  filter: blur(20px);
+.btn-primary {
+  background-color: #7C3AED;
+  color: #ffffff;
 }
 
-.button:hover::after {
-  filter: blur(30px);
+.btn-primary:hover {
+  background-color: #6D28D9;
 }
 
-.button:hover::before {
-  transform: rotate(-180deg);
+.btn-social {
+  background-color: #1F2937;
+  color: #ffffff;
 }
 
-.button:active::before {
-  scale: 0.7;
-} */
-
-.h1{
-font-size: 90px;
+.btn-social:hover {
+  background-color: #374151;
 }
 
-.btn2{
-    color: white;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-   justify-content: center;
-    gap: 33px;
-    font-size: 14px;
-    transition: background 0.3s ease;
+.form-switch {
+  margin-top: 2rem;
+  text-align: center;
+  color: #9CA3AF;
 }
+
+.form-link-switch {
+  font-weight: 700;
+  color: #A78BFA;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.form-link-switch:hover {
+  color: #C4B5FD;
+}
+
+.divider {
+  margin: 2rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.divider-line {
+  flex-grow: 1;
+  border-top: 1px solid #4B5563;
+}
+
+.divider-text {
+  flex-shrink: 0;
+  margin: 0 1rem;
+  color: #9CA3AF;
+  font-size: 0.875rem;
+}
+
+.social-login-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .entry-page {
+    flex-direction: row;
+  }
+  .branding-panel {
+    width: 50%;
+    padding: 3rem;
+  }
+  .branding-content {
+    text-align: left;
+    margin-top: -3rem; 
+  }
+  .form-panel {
+    width: 50%;
+    padding: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .branding-panel {
+    width: 40%;
+    padding: 4rem;
+  }
+  .branding-heading {
+    font-size: 3rem;
+  }
+  .form-panel {
+    width: 60%;
+  }
+}
+

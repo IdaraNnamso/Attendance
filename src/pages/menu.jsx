@@ -13,7 +13,60 @@ ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarEle
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  
+  // --- Start: Updated Data for Right Sidebar ---
+  const lastActivities = [
+    {
+      id: 1,
+      category: 'Announcement',
+      message: 'You posted a new company-wide announcement: "Important Q3 Project Kick-off Meeting."',
+      time: 'Just now'
+    },
+    {
+      id: 2,
+      category: 'Application',
+      message: '<strong>Sarah M.</strong> applied for the "Senior Software Engineer" position.',
+      time: '5 mins ago'
+    },
+    {
+      id: 3,
+      category: 'Employee Update',
+      message: '<strong>John Doe</strong> updated his contact information.',
+      time: '15 mins ago'
+    },
+    {
+      id: 4,
+      category: 'Job Post',
+      message: 'You posted a new job: "Marketing Specialist - Remote".',
+      time: '1 hour ago'
+    },
+    {
+      id: 5,
+      category: 'Performance Review',
+      message: 'Performance review for <strong>Emily R.</strong> is due next week.',
+      time: '2 hours ago'
+    },
+    {
+      id: 6,
+      category: 'Leave Request',
+      message: '<strong>David K.</strong> submitted a leave request for 3 days.',
+      time: 'Yesterday'
+    },
+    {
+      id: 7,
+      category: 'Announcement',
+      message: 'New HR policy on remote work has been published.',
+      time: 'Yesterday'
+    },
+    {
+      id: 8,
+      category: 'Onboarding',
+      message: 'New employee <strong>Maria S.</strong> completed onboarding.',
+      time: '2 days ago'
+    },
+  ];
+  // --- End: Updated Data for Right Sidebar ---
+
+
   const summaryData = {
     present: 215,
     late: 12,
@@ -105,7 +158,6 @@ export default function App() {
     },
   };
 
-
   const recentAttendance = [
     { name: 'Idara Nnamso', date: 'Mar 14, 2024', checkIn: '8:30 AM', checkOut: '5:15 AM', status: 'Present' },
     { name: 'Collins Emelumba', date: 'Mar 13, 2024', checkIn: '6:40 AM', checkOut: '8:15 AM', status: 'Present' },
@@ -116,6 +168,12 @@ export default function App() {
     { name: 'Elon Musk', date: 'Mar 10, 2024', checkIn: '7:40 AM', checkOut: '4:20 PM', status: 'Late' },
     { name: 'Jun Young-Hyun', date: 'Mar 10, 2024', checkIn: '9:45 AM', checkOut: '8:20 AM', status: 'Present' },
   ];
+
+  const getCurrentDate = () => {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date().toLocaleDateString(undefined, options);
+  };
+
 
   return (
     <div className="dashboard-layout">
@@ -129,28 +187,34 @@ export default function App() {
 
       <Sidebar isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
-      <div className="content-area">
+      <div className={`content-area ${menuOpen ? 'with-sidebar-open' : ''}`}>
         <header className="dashboard-header">
           <div className="header-left">
-            <span className="hr-logo">NUGI</span>
+            {/* Using Nugi image here as per your other components */}
+            <Link to="/" className="hr-logo">
+              <img src={Nugi} alt="Nugi Logo" style={{ height: '40px' }} />
+            </Link>
             <div className="search-bar">
               <FontAwesomeIcon icon={faSearch} />
               <input type="text" placeholder="Search here" />
             </div>
           </div>
           <div className="header-right">
-            <span>15 August 2023</span>
-            <FontAwesomeIcon icon={faBell} className="header-icon" />
+            <span className="current-date">{getCurrentDate()}</span> {/* Dynamic date */}
+            <Link to='/message'>
+               <FontAwesomeIcon icon={faBell} className="header-icon" />
+            </Link>
+
             <Link to='/profile'>
               <FontAwesomeIcon icon={faUserCircle} className="header-icon" />
             </Link>
-          
+
           </div>
         </header>
 
         <main className="main-content">
           <section className="welcome-section">
-            <div className="welcome-card">
+            <div className="welcome-card card">
               <h2>Welcome to Admin dashboard, Idara!</h2>
               <div className="announcement-stats">
                 <button className="add-announcement-btn">Add Announcements</button>
@@ -164,7 +228,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="employee-manage-card">
+            <div className="employee-manage-card card">
               <h3>Manage Employee</h3>
               <div className="employee-chart-container">
                 <div className="chart-wrapper">
@@ -197,52 +261,43 @@ export default function App() {
 
           <section className="attendance-table card">
             <h3>Attendance Report</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Date</th>
-                  <th>Check-In</th>
-                  <th>Check-Out</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recentAttendance.map((record, i) => (
-                  <tr key={i}>
-                    <td>{record.name}</td>
-                    <td>{record.date}</td>
-                    <td>{record.checkIn}</td>
-                    <td>{record.checkOut}</td>
-                    <td>{record.status}</td>
+            <div className="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Check-In</th>
+                    <th>Check-Out</th>
+                    <th>Status</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {recentAttendance.map((record, i) => (
+                    <tr key={i}>
+                      <td>{record.name}</td>
+                      <td>{record.date}</td>
+                      <td>{record.checkIn}</td>
+                      <td>{record.checkOut}</td>
+                      <td>{record.status}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </section>
         </main>
 
         <aside className="right-sidebar">
           <h3>Last activities <a href="#" className="view-all">View all</a></h3>
           <div className="activity-list">
-            <div className="activity-item">
-              <p className="activity-category">Announcements</p>
-              <p><strong>Sved All</strong> - Applied for far the Marketing Manager position</p>
-            </div>
-            <div className="activity-item">
-              <p><strong>Sajid khan</strong> - Applied forthe SEO Specialist</p>
-            </div>
-            <div className="activity-item">
-              <p className="activity-category">Announcements</p>
-              <p>You post the announcement: "Lorem ipsum dolor sit amet, consetetur adidesci ..."</p>
-            </div>
-            <div className="activity-item">
-              <p className="activity-category">Job Post</p>
-              <p>See'ddded Mustahah Khan sitto team.</p>
-            </div>
-            <div className="activity-item">
-              <p>See added Imitazha Koren sito team.</p>
-            </div>
+            {lastActivities.map(activity => (
+              <div key={activity.id} className="activity-item">
+                {activity.category && <p className="activity-category">{activity.category}</p>}
+                <p dangerouslySetInnerHTML={{ __html: activity.message }}></p>
+                <span className="activity-time">{activity.time}</span> {/* Added time */}
+              </div>
+            ))}
           </div>
         </aside>
       </div>

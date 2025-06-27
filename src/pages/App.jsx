@@ -1,240 +1,120 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom'; 
-import viteLogo from '/vite.svg';
+import React, { useState } from 'react';
 import '../css/app.css';
-import Sidebar from '../components/sidebar';
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts';
-  
-{/* <Aurora>
-  colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
-  blend={0.5}
-  amplitude={1.0}
-  speed={0.5}
+import { Link } from 'react-router-dom';
+import NI from '../assets/NI.png';
 
-</Aurora> */}
-
-import { Renderer, Program, Mesh, Color, Triangle } from "ogl";
-import { useEffect, useRef } from "react";
-
-
-const VERT = `#version 300 es
-in vec2 position;
-void main() {
-  gl_Position = vec4(position, 0.0, 1.0);
-}
-`;
-
-const FRAG = `#version 300 es
-precision highp float;
-
-uniform float uTime;
-uniform float uAmplitude;
-uniform vec3 uColorStops[3];
-uniform vec2 uResolution;
-uniform float uBlend;
-
-out vec4 fragColor;
-
-vec3 permute(vec3 x) {
-  return mod(((x * 34.0) + 1.0) * x, 289.0);
-}
-
-float snoise(vec2 v){
-  const vec4 C = vec4(
-      0.211324865405187, 0.366025403784439,
-      -0.577350269189626, 0.024390243902439
-  );
-  vec2 i  = floor(v + dot(v, C.yy));
-  vec2 x0 = v - i + dot(i, C.xx);
-  vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
-  vec4 x12 = x0.xyxy + C.xxzz;
-  x12.xy -= i1;
-  i = mod(i, 289.0);
-
-  vec3 p = permute(
-      permute(i.y + vec3(0.0, i1.y, 1.0))
-    + i.x + vec3(0.0, i1.x, 1.0)
-  );
-
-  vec3 m = max(
-      0.5 - vec3(
-          dot(x0, x0),
-          dot(x12.xy, x12.xy),
-          dot(x12.zw, x12.zw)
-      ), 
-      0.0
-  );
-  m = m * m;
-  m = m * m;
-
-  vec3 x = 2.0 * fract(p * C.www) - 1.0;
-  vec3 h = abs(x) - 0.5;
-  vec3 ox = floor(x + 0.5);
-  vec3 a0 = x - ox;
-  m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
-
-  vec3 g;
-  g.x  = a0.x  * x0.x  + h.x  * x0.y;
-  g.yz = a0.yz * x12.xz + h.yz * x12.yw;
-  return 130.0 * dot(m, g);
-}
-
-struct ColorStop {
-  vec3 color;
-  float position;
-};
-
-#define COLOR_RAMP(colors, factor, finalColor) {              \
-  int index = 0;                                            \
-  for (int i = 0; i < 2; i++) {                               \
-     ColorStop currentColor = colors[i];                    \
-     bool isInBetween = currentColor.position <= factor;    \
-     index = int(mix(float(index), float(i), float(isInBetween))); \
-  }                                                         \
-  ColorStop currentColor = colors[index];                   \
-  ColorStop nextColor = colors[index + 1];                  \
-  float range = nextColor.position - currentColor.position; \
-  float lerpFactor = (factor - currentColor.position) / range; \
-  finalColor = mix(currentColor.color, nextColor.color, lerpFactor); \
-}
-
-void main() {
-  vec2 uv = gl_FragCoord.xy / uResolution;
-  
-  ColorStop colors[3];
-  colors[0] = ColorStop(uColorStops[0], 0.0);
-  colors[1] = ColorStop(uColorStops[1], 0.5);
-  colors[2] = ColorStop(uColorStops[2], 1.0);
-  
-  vec3 rampColor;
-  COLOR_RAMP(colors, uv.x, rampColor);
-  
-  float height = snoise(vec2(uv.x * 2.0 + uTime * 0.1, uTime * 0.25)) * 0.5 * uAmplitude;
-  height = exp(height);
-  height = (uv.y * 2.0 - height + 0.2);
-  float intensity = 0.6 * height;
-  
-  float midPoint = 0.20;
-  float auroraAlpha = smoothstep(midPoint - uBlend * 0.5, midPoint + uBlend * 0.5, intensity);
-  
-  vec3 auroraColor = intensity * rampColor;
-  
-  fragColor = vec4(auroraColor * auroraAlpha, auroraAlpha);
-}
-`;
-
-export default function app(props) {
-  const {
-    colorStops = ["#5227FF", "#7cff67", "#5227FF"],
-    amplitude = 1.0,
-    blend = 0.5
-  } = props;
-  const propsRef = useRef(props);
-  propsRef.current = props;
-
-  const ctnDom = useRef(null);
-
-  useEffect(() => {
-    const ctn = ctnDom.current;
-    if (!ctn) return;
-
-    const renderer = new Renderer({
-      alpha: true,
-      premultipliedAlpha: true,
-      antialias: true
-    });
-    const gl = renderer.gl;
-    gl.clearColor(0, 0, 0, 0);
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-    gl.canvas.style.backgroundColor = 'transparent';
-
-    let program;
-
-    function resize() {
-      if (!ctn) return;
-      const width = ctn.offsetWidth;
-      const height = ctn.offsetHeight;
-      renderer.setSize(width, height);
-      if (program) {
-        program.uniforms.uResolution.value = [width, height];
-      }
-    }
-    window.addEventListener("resize", resize);
-
-    const geometry = new Triangle(gl);
-    if (geometry.attributes.uv) {
-      delete geometry.attributes.uv;
-    }
-
-    const colorStopsArray = colorStops.map((hex) => {
-      const c = new Color(hex);
-      return [c.r, c.g, c.b];
-    });
-
-    program = new Program(gl, {
-      vertex: VERT,
-      fragment: FRAG,
-      uniforms: {
-        uTime: { value: 0 },
-        uAmplitude: { value: amplitude },
-        uColorStops: { value: colorStopsArray },
-        uResolution: { value: [ctn.offsetWidth, ctn.offsetHeight] },
-        uBlend: { value: blend }
-      }
-    });
-
-    const mesh = new Mesh(gl, { geometry, program });
-    ctn.appendChild(gl.canvas);
-
-    let animateId = 0;
-    const update = (t) => {
-      animateId = requestAnimationFrame(update);
-      const { time = t * 0.01, speed = 1.0 } = propsRef.current;
-      program.uniforms.uTime.value = time * speed * 0.1;
-      program.uniforms.uAmplitude.value = propsRef.current.amplitude ?? 1.0;
-      program.uniforms.uBlend.value = propsRef.current.blend ?? blend;
-      const stops = propsRef.current.colorStops ?? colorStops;
-      program.uniforms.uColorStops.value = stops.map((hex) => {
-        const c = new Color(hex);
-        return [c.r, c.g, c.b];
-      });
-      renderer.render({ scene: mesh });
-    };
-    animateId = requestAnimationFrame(update);
-
-    resize();
-
-    return () => {
-      cancelAnimationFrame(animateId);
-      window.removeEventListener("resize", resize);
-      if (ctn && gl.canvas.parentNode === ctn) {
-        ctn.removeChild(gl.canvas);
-      }
-      gl.getExtension("WEBGL_lose_context")?.loseContext();
-    };
-  }, [amplitude]);
-
-return (
-  <div ref={ctnDom} className="aurora-container">
-    <div className="txt">
-      <h1 className='h1'>welcome to Nugi Innovations</h1>
-      <p className='ptag'>Lets gets started</p>
- <div className='btn2'>
-     <Link to="/sat" className="clean-link">
-     <button className='button'>login</button>
-     </Link>
-
-<Link to="/sat" className='clean-link'>
-<button className='button'>signup</button>
-</Link>
-
-
-  </div>
-    </div>
- 
- 
-   </div>
+const GoogleIcon = () => (
+  <svg className="icon" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
+    <path fill="currentColor" d="M488 261.8C488 403.3 381.5 512 244 512 111.3 512 0 398.5 0 256S111.3 0 244 0c73 0 134.3 29.5 175.8 68.5l-64.3 62.4C330.3 103.5 292.3 84 244 84c-83.2 0-151.2 67.2-151.2 150s68 150 151.2 150c95.5 0 131.7-62.3 136.8-95.2H244v-75.5h236.4c2.5 13.5 3.6 28.5 3.6 44.3z"></path>
+  </svg>
 );
 
+const GithubIcon = () => (
+  <svg className="icon" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
+    <path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3.3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-6-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.3-6.2-10.1-27.8 2.3-57.4 0 0 21.9-7 72.1 25.6 20.9-6.2 43.7-9.4 66.5-9.4 22.8 0 45.6 3.1 66.5 9.4 50.2-32.6 72.1-25.6 72.1-25.6 12.4 29.6 4.6 51.2 2.3 57.4 16 17.6 23.6 31.4 23.6 58.9 0 96.5-56.4 104.2-112.6 110.5 9.1 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path>
+  </svg>
+);
+
+const LoginForm = ({ setFormType }) => (
+  <div className="form-container">
+    <h2 className="form-title">Welcome Back</h2>
+    <p className="form-subtitle">Enter your credentials to access your account.</p>
+    <form>
+      <div className="input-group">
+        <label className="form-label" htmlFor="login-email">Email Address</label>
+        <input className="form-input" id="login-email" type="email" placeholder="you@example.com" />
+      </div>
+      <div className="input-group">
+        <label className="form-label" htmlFor="login-password">Password</label>
+        <input className="form-input" id="login-password" type="password" placeholder="••••••••••" />
+        <a href="#" className="form-link-forgot">Forgot Password?</a>
+      </div>
+      <div className="button-group">
+        <Link to='/menu'>
+             <button className="btn btn-primary" type="button">Log In</button>
+        </Link>
+   </div>
+    </form>
+    <div className="form-switch">
+      <p>
+        Don't have an account?{' '}
+        <button onClick={() => setFormType('signup')} className="form-link-switch">Sign Up</button>
+      </p>
+    </div>
+  </div>
+);
+
+const SignupForm = ({ setFormType }) => (
+  <div className="form-container">
+    <h2 className="form-title">Create an Account</h2>
+    <p className="form-subtitle">Start your journey with us today.</p>
+    <form>
+      <div className="input-group">
+        <label className="form-label" htmlFor="signup-name">Full Name</label>
+        <input className="form-input" id="signup-name" type="text" placeholder="Akpan Idara" />
+      </div>
+      <div className="input-group">
+        <label className="form-label" htmlFor="signup-email">Email Address</label>
+        <input className="form-input" id="signup-email" type="email" placeholder="you@example.com" />
+      </div>
+      <div className="input-group">
+        <label className="form-label" htmlFor="signup-password">Password</label>
+        <input className="form-input" id="signup-password" type="password" placeholder="••••••••••" />
+      </div>
+      <div className="button-group">
+        <Link to='/menu'>
+           <button className="btn btn-primary" type="button">Sign Up</button>
+        </Link>
+     
+      </div>
+    </form>
+    <div className="form-switch">
+      <p>
+        Already have an account?{' '}
+        <button onClick={() => setFormType('login')} className="form-link-switch">Log In</button>
+      </p>
+    </div>
+  </div>
+);
+
+export default function App() {
+  const [formType, setFormType] = useState('login');
+
+  return (
+    <div className="entry-page">
+      <div className="branding-panel">
+        <img src={NI} alt="Logo" className="branding-logo" />
+        <div className="branding-content">
+          <h2 className="branding-heading">Unlock Your Potential.</h2>
+          <p className="branding-subheading">
+            Join a community of builders and creators. Sign in to continue your journey.
+          </p>
+        </div>
+        <div className="branding-footer">
+          &copy; 2025 Nugi Innovations Inc. All Rights Reserved.
+        </div>
+      </div>
+
+      <div className="form-panel">
+        <div className="form-wrapper">
+          {formType === 'login' ? <LoginForm setFormType={setFormType} /> : <SignupForm setFormType={setFormType} />}
+          <div className="divider">
+            <div className="divider-line"></div>
+            <span className="divider-text">Or continue with</span>
+            <div className="divider-line"></div>
+          </div>
+          <div className="social-login-group">
+            <button className="btn btn-social">
+              <GoogleIcon />
+              Continue with Google
+            </button>
+            <button className="btn btn-social">
+              <GithubIcon />
+              Continue with GitHub
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

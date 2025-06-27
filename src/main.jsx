@@ -16,6 +16,8 @@ import Sat from './pages/s&t.jsx';
 import Sign2 from './pages/sign2.jsx';
 import Profile from './pages/profile.jsx';
 import Attendance from './pages/attendance.jsx';
+import Message from './pages/message.jsx';
+import Setting from './pages/setting.jsx';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -31,6 +33,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/sign2" element={<Sign2 />} />
         <Route path="/profile" element={<Profile />} />
           <Route path="/attendance" element={<Attendance />} />
+           <Route path="/message" element={<Message />} />
+           <Route path="/setting" element={<Setting />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
