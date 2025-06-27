@@ -6,8 +6,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 
 import App from './pages/App.jsx';
-import Face from './pages/face.jsx'; // <-- lowercase
-import Menu from './pages/Menu.jsx';
+import Face from './pages/face.jsx';
+import Menu from './pages/menu.jsx';
 import Profile from './pages/Profile.jsx';
 import Attendance from './pages/Attendance.jsx';
 import Message from './pages/Message.jsx';
