@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 
 import App from './pages/App.jsx';
-import Face from './pages/Face.jsx'; 
+import Face from './pages/Face'; // ✅ correct
 import Menu from './pages/Menu.jsx';
 import Profile from './pages/Profile.jsx';
 import Attendance from './pages/Attendance.jsx';
