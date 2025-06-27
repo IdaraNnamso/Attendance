@@ -124,7 +124,7 @@
     .sidebar:hover .nav-label {
         opacity: 1;
         max-width: 150px;
-        margin-left: 15px;
+     
         transition: opacity 0.2s ease 0.1s, max-width 0.3s ease, margin-left 0.3s ease;
     }
 
