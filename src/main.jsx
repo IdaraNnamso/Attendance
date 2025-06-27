@@ -8,10 +8,10 @@ import './index.css';
 import App from './pages/App.jsx';
 import Face from './pages/face.jsx';
 import Menu from './pages/menu.jsx';
-import Profile from './pages/Profile.jsx';
-import Attendance from './pages/Attendance.jsx';
-import Message from './pages/Message.jsx';
-import Setting from './pages/Setting.jsx';
+import Profile from './pages/profile.jsx';
+import Attendance from './pages/attendance.jsx';
+import Message from './pages/message.jsx';
+import Setting from './pages/setting.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
