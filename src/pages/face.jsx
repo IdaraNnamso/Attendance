@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 
 // Main App component for face scanning
-function App() {
+function Face() {
   const videoRef = useRef(); // Reference to the video element for camera stream
   const [scanningStarted, setScanningStarted] = useState(false); // State to track if scanning has started
   const [scanningComplete, setScanningComplete] = useState(false); // State to manage scan status (true after timer)
@@ -299,4 +299,4 @@ function App() {
   );
 }
 
-export default App;
+export default Face;
