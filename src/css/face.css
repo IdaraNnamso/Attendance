@@ -1,18 +1,15 @@
-
-
-
 .face-page {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    width: 100%; /* Take full width on smaller screens */
-    max-width: 800px; /* Limit max width on larger screens */
-    margin: 20px auto; /* Add vertical margin to separate from top/bottom of screen if not perfectly centered */
-    text-align: center; /* Center text within face-page */
-    background-color: #ffffff; /* Add a background to the main content area */
-    border-radius: 15px; /* Rounded corners for the main content area */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Subtle shadow for the content box */
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .face-page h1 {
@@ -28,53 +25,50 @@
     color: #555;
 }
 
-/* Video stream container */
 .video-box {
     position: relative;
-    width: 640px; /* Fixed width for video */
-    height: 480px; /* Fixed height for video */
-    border: 3px solid #007bff; /* Blue border */
-    border-radius: 12px; /* Rounded corners */
-    overflow: hidden; /* Ensures content respects border-radius */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* Stronger shadow for depth */
-    background-color: #000; /* Black background if video not loaded */
-    display: flex; /* Use flex to center video inside if needed */
+    width: 640px;
+    height: 480px;
+    border: 3px solid #007bff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    background-color: #000;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Video element styling */
 .video-stream {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensures video fills container without distortion */
-    display: block; /* Removes extra space below video */
-    border-radius: 9px; /* Slightly less than parent for inner shadow effect */
+    object-fit: cover;
+    display: block;
+    border-radius: 9px;
 }
 
-/* Custom Modal Styling (replaces browser's alert) */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Ensure modal is on top */
+    z-index: 1000;
 }
 
 .modal-content {
     background-color: #ffffff;
     padding: 30px;
-    border-radius: 15px; /* Rounded corners for modal */
+    border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     text-align: center;
     max-width: 400px;
     width: 90%;
-    animation: fadeIn 0.3s ease-out; /* Simple fade-in animation */
+    animation: fadeIn 0.3s ease-out;
 }
 
 .modal-content p {
@@ -88,7 +82,7 @@
     color: white;
     border: none;
     padding: 12px 25px;
-    border-radius: 8px; /* Rounded button */
+    border-radius: 8px;
     cursor: pointer;
     font-size: 1.1em;
     font-weight: 600;
@@ -98,7 +92,7 @@
 
 .modal-close-btn:hover {
     background-color: #0056b3;
-    transform: translateY(-2px); /* Slight lift on hover */
+    transform: translateY(-2px);
 }
 
 .modal-close-btn:active {
@@ -106,13 +100,17 @@
     transform: translateY(0);
 }
 
-/* Keyframe animation for modal */
 @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
-/* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
     .face-page h1 {
         font-size: 2em;
@@ -123,10 +121,10 @@
     }
 
     .video-box {
-        width: 90vw; /* Occupy 90% of viewport width */
-        height: calc(0.75 * 90vw); /* Maintain 4:3 aspect ratio (480/640 = 0.75) */
-        max-width: 640px; /* But don't exceed original max width */
-        max-height: 480px; /* And don't exceed original max height */
+        width: 90vw;
+        height: calc(0.75 * 90vw);
+        max-width: 640px;
+        max-height: 480px;
     }
 
     .modal-content {

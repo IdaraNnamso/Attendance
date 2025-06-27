@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Sidebar from '../components/sidebar';
-import './css/setting.css'; // Make sure this path is correct
-import '../css/dash.css'; // Ensure dash.css is imported for general layout
+import '../css/setting.css'; 
+import '../css/dash.css'; 
 import Nugi from '../assets/NI.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faBell, faUserCircle } from '@fortawesome/free-solid-svg-icons';
@@ -11,16 +11,15 @@ export default function Setting() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
-  // Profile State
+  
   const [profile, setProfile] = useState({
-    fullName: 'Idara Nnamso', // Example initial data
+    fullName: 'Idara Nnamso', 
     email: 'idara.nnamso@example.com',
     phone: '+234 801 234 5678',
     address: '123 HR Street, Victoria Island, Lagos'
   });
   const [profileMessage, setProfileMessage] = useState('');
 
-  // Password State
   const [passwords, setPasswords] = useState({
     currentPassword: '',
     newPassword: '',
@@ -28,11 +27,9 @@ export default function Setting() {
   });
   const [passwordMessage, setPasswordMessage] = useState('');
 
-  // Preferences State
   const [darkMode, setDarkMode] = useState(false);
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
 
-  // Handlers for Profile Section
   const handleProfileChange = (e) => {
     const { name, value } = e.target;
     setProfile(prevProfile => ({
@@ -43,13 +40,11 @@ export default function Setting() {
 
   const handleProfileSubmit = (e) => {
     e.preventDefault();
-    // In a real app, you'd send this data to a backend API
     console.log('Saving profile:', profile);
     setProfileMessage('Profile updated successfully!');
-    setTimeout(() => setProfileMessage(''), 3000); // Clear message after 3 seconds
+    setTimeout(() => setProfileMessage(''), 3000);
   };
 
-  // Handlers for Password Section
   const handlePasswordChange = (e) => {
     const { name, value } = e.target;
     setPasswords(prevPasswords => ({
@@ -60,23 +55,21 @@ export default function Setting() {
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
-    setPasswordMessage(''); // Clear previous messages
+    setPasswordMessage(''); 
     if (passwords.newPassword !== passwords.confirmNewPassword) {
       setPasswordMessage('New passwords do not match!');
       return;
     }
-    if (passwords.newPassword.length < 6) { // Basic validation
+    if (passwords.newPassword.length < 6) { 
       setPasswordMessage('New password must be at least 6 characters long!');
       return;
     }
-    // In a real app, send currentPassword and newPassword to backend for verification and update
     console.log('Changing password:', passwords.newPassword);
     setPasswordMessage('Password changed successfully!');
-    setPasswords({ currentPassword: '', newPassword: '', confirmNewPassword: '' }); // Clear fields
+    setPasswords({ currentPassword: '', newPassword: '', confirmNewPassword: '' }); 
     setTimeout(() => setPasswordMessage(''), 3000);
   };
 
-  // Handlers for Preferences Section
   const handleThemeToggle = () => {
     setDarkMode(!darkMode);
     document.body.classList.toggle('dark', !darkMode);
@@ -86,7 +79,6 @@ export default function Setting() {
     setNotificationsEnabled(!notificationsEnabled);
   };
 
-  // Get current date for the header
   const getCurrentDate = () => {
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     return new Date().toLocaleDateString(undefined, options);
@@ -121,8 +113,6 @@ export default function Setting() {
 
         <div className="settings-container">
           <h2>Settings</h2>
-
-          {/* Edit Profile Section */}
           <div className="settings-section">
             <h3>Edit Profile</h3>
             <form onSubmit={handleProfileSubmit}>
@@ -179,7 +169,6 @@ export default function Setting() {
             </form>
           </div>
 
-          {/* Change Password Section */}
           <div className="settings-section">
             <h3>Change Password</h3>
             <form onSubmit={handlePasswordSubmit}>

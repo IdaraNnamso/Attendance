@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Sidebar from '../components/sidebar';
-import './css/attendance.css';
+import '../css/attendance.css';
 import '../css/dash.css';
 import Nugi from '../assets/NI.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
