@@ -1,49 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Sidebar from '../components/sidebar';
 import '../css/attendance.css';
-import '../pages/profile'
 import '../css/dash.css';
 import Nugi from '../assets/NI.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faBell, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { UserCircle, Calendar, Clock, CheckCircle, XCircle, Slash } from 'lucide-react';
-
-const recentAttendanceData = [
-  {
-    id: 1,
-    name: 'Alice Johnson',
-    profileImg: 'https://www.shutterstock.com/image-photo/smiling-african-american-millennial-businessman-600nw-1437938108.jpg',
-    course: 'Web Development Basics',
-    date: '2025-06-24',
-    timeIn: '08:55 AM',
-    timeOut: '-',
-    status: 'Present',
-  },
-  {
-    id: 2,
-    name: 'Jeff Besos',
-    profileImg: 'https://cdn.britannica.com/56/199056-050-CCC44482/Jeff-Bezos-2017.jpg?w=385',
-    course: 'Data Science Fundamentals',
-    date: '2025-06-24',
-    timeIn: '09:10 AM',
-    timeOut: '-',
-    status: 'Late',
-  },
-  {
-    id: 3,
-    name: 'Charlie Brown',
-    profileImg: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQRdQ6WOe65-6NIVOkmyAQidFlmL40mJZsww&s',
-    course: 'Digital Marketing Advanced',
-    date: '2025-06-24',
-    timeIn: '-',
-    timeOut: '-',
-    status: 'Absent',
-  },
-];
+import { Calendar, Clock, CheckCircle, XCircle, Slash } from 'lucide-react';
 
 export default function RecentAttendance() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [attendanceData, setAttendanceData] = useState([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('attendanceData');
+    if (saved) {
+      setAttendanceData(JSON.parse(saved));
+    }
+  }, []);
+
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
   const getStatusIcon = (status) => {
@@ -84,9 +59,8 @@ export default function RecentAttendance() {
           <div className="header-right">
             <span className="current-date">{getCurrentDate()}</span>
             <Link to='/message'>
-             <FontAwesomeIcon icon={faBell} className="header-icon" />
+              <FontAwesomeIcon icon={faBell} className="header-icon" />
             </Link>
-           
             <Link to="/profile">
               <FontAwesomeIcon icon={faUserCircle} className="header-icon" />
             </Link>
@@ -103,37 +77,41 @@ export default function RecentAttendance() {
               <button className="view-all-btn">Export Data</button>
             </div>
             <div className="table-responsive">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Student Name</th>
-                    <th className="hide-mobile">Course</th>
-                    <th>Date</th>
-                    <th>Time In</th>
-                    <th className="hide-mobile">Time Out</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {recentAttendanceData.map((record) => (
-                    <tr key={record.id}>
-                      <td className="student-profile-cell">
-                        <img src={record.profileImg} alt={record.name} className="student-profile-img" />
-                        <span className="student-name">{record.name}</span>
-                      </td>
-                      <td className="hide-mobile">{record.course}</td>
-                      <td><Calendar size={16} className="table-icon" /> {record.date}</td>
-                      <td><Clock size={16} className="table-icon" /> {record.timeIn}</td>
-                      <td className="hide-mobile"><Clock size={16} className="table-icon" /> {record.timeOut}</td>
-                      <td>
-                        <span className={`status-badge status-${record.status.toLowerCase()}`}>
-                          {getStatusIcon(record.status)} {record.status}
-                        </span>
-                      </td>
+              {attendanceData.length === 0 ? (
+                <p style={{ padding: '1rem' }}>No attendance records found.</p>
+              ) : (
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Student Name</th>
+                      <th className="hide-mobile">Course</th>
+                      <th>Date</th>
+                      <th>Time In</th>
+                      <th className="hide-mobile">Time Out</th>
+                      <th>Status</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {attendanceData.map((record) => (
+                      <tr key={record.id}>
+                        <td className="student-profile-cell">
+                          <img src={record.profileImg} alt={record.name} className="student-profile-img" />
+                          <span className="student-name">{record.name}</span>
+                        </td>
+                        <td className="hide-mobile">{record.course}</td>
+                        <td><Calendar size={16} className="table-icon" /> {record.date}</td>
+                        <td><Clock size={16} className="table-icon" /> {record.timeIn}</td>
+                        <td className="hide-mobile"><Clock size={16} className="table-icon" /> {record.timeOut}</td>
+                        <td>
+                          <span className={`status-badge status-${record.status.toLowerCase()}`}>
+                            {getStatusIcon(record.status)} {record.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
             </div>
           </div>
         </div>
