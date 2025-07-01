@@ -39,6 +39,12 @@ export default function RecentAttendance() {
     return new Date().toLocaleDateString(undefined, options);
   };
 
+  // Clear attendance data handler
+  const clearData = () => {
+    localStorage.removeItem('attendanceData');
+    setAttendanceData([]); // Update state to clear the UI immediately
+  };
+
   return (
     <div className="dashboard-layout">
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
@@ -74,7 +80,7 @@ export default function RecentAttendance() {
           <div className="attendance-table-card card">
             <div className="card-header">
               <h3>Daily Attendance Log</h3>
-              <button className="view-all-btn">Export Data</button>
+              <button className="view-all-btn" onClick={clearData}>Clear Data</button>
             </div>
             <div className="table-responsive">
               {attendanceData.length === 0 ? (

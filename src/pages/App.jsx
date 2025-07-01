@@ -18,20 +18,34 @@ const GithubIcon = () => (
 const LoginForm = ({ setFormType }) => {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
+  const [message, setMessage] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
+
+  const showCustomAlert = (msg) => {
+    setMessage(msg);
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 2500);
+  };
 
   const handleLogin = () => {
-    const stored = JSON.parse(localStorage.getItem('nugi-user'));
-    if (!stored) return alert('No user found.');
-    if (stored.email === email && stored.pass === pass) {
-      alert('Login successful!');
-      window.location.href = '/menu';
+    const dummyUser = {
+      email: 'Excellencennamso@gmail.com',
+      pass: 'kolawole@321'
+    };
+
+    if (email === dummyUser.email && pass === dummyUser.pass) {
+      showCustomAlert('Login successful!');
+      setTimeout(() => {
+        window.location.href = '/menu';
+      }, 2000);
     } else {
-      alert('Invalid credentials.');
+      showCustomAlert('Invalid credentials.');
     }
   };
 
   return (
     <div className="form-container">
+      {showAlert && <div className="custom-alert">{message}</div>}
       <h2 className="form-title">Welcome Back</h2>
       <p className="form-subtitle">Enter your credentials to access your account.</p>
       <div className="input-group">
@@ -57,16 +71,25 @@ const SignupForm = ({ setFormType }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
+  const [message, setMessage] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
+
+  const showCustomAlert = (msg) => {
+    setMessage(msg);
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 2500);
+  };
 
   const handleSignup = () => {
-    const user = { name, email, pass };
-    localStorage.setItem('nugi-user', JSON.stringify(user));
-    alert('Account created!');
-    window.location.href = '/menu';
+    showCustomAlert('Account created!');
+    setTimeout(() => {
+      window.location.href = '/menu';
+    }, 2000);
   };
 
   return (
     <div className="form-container">
+      {showAlert && <div className="custom-alert">{message}</div>}
       <h2 className="form-title">Create an Account</h2>
       <p className="form-subtitle">Start your journey with us today.</p>
       <div className="input-group">

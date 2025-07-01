@@ -79,8 +79,29 @@ export default function FacePage() {
   };
 
   const handleModalOk = () => {
+    const currentDate = new Date();
+    const attendanceRecord = {
+      id: Date.now(),
+      name: 'Akpan Idara',
+      profileImg: 'https://ui-avatars.com/api/?name=Akpan+Idara&background=0D8ABC&color=fff',
+      course: 'Computer Science',
+      date: currentDate.toLocaleDateString(undefined, {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }),
+      timeIn: currentDate.toLocaleTimeString(),
+      timeOut: '--',
+      status: 'Present',
+    };
+
+    const existingData = JSON.parse(localStorage.getItem('attendanceData')) || [];
+    const updatedData = [...existingData, attendanceRecord];
+    localStorage.setItem('attendanceData', JSON.stringify(updatedData));
+
     setShowModal(false);
-    navigate('/attendance'); // navigate to attendance page
+    navigate('/attendance');
   };
 
   return (
