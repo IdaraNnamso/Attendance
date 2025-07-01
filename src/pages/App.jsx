@@ -6,20 +6,20 @@ import NI from '../assets/NI.png';
 const GoogleIcon = () => (
   <svg className="icon" viewBox="0 0 488 512">
     <path fill="currentColor" d="M488 261.8C488 403.3 381.5 512 244 512..." />
-  </svg>
+  </svg>                                                                                        
 );
 
 const GithubIcon = () => (
   <svg className="icon" viewBox="0 0 496 512">
-    <path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6..." />
+   <path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6..." />     {/*  svg that renders the icons */}
   </svg>
 );
 
 const LoginForm = ({ setFormType }) => {
-  const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
-  const [message, setMessage] = useState('');
-  const [showAlert, setShowAlert] = useState(false);
+  const [email, setEmail] = useState(''); {/*  store and uodate the email input value */}
+  const [pass, setPass] = useState('');  {/*  same but for the password input value */}
+  const [message, setMessage] = useState('');  {/*  store an update alert message text */}
+  const [showAlert, setShowAlert] = useState(false);  {/* to check if the alert message is visible or not */}
 
   const showCustomAlert = (msg) => {
     setMessage(msg);

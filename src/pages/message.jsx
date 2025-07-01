@@ -136,7 +136,7 @@ export default function Messaage() {
         </div>
 
         <div className="message-page">
-          <h2>Admin Messages</h2>
+          <h2>Messages</h2>
           <div className="message-list">
             {messages.map((msg, index) => (
               <div key={index} className={`message-card ${msg.type}`}>
