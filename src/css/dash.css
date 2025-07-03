@@ -18,6 +18,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.mb-3{
+  background-color: #2e1b5e;
+}
+
 .dashboard-layout {
   display: flex;
   min-height: 100vh;
@@ -46,6 +50,7 @@ body {
     display: block;
   }
 }
+
 
 .content-area {
   flex-grow: 1;
@@ -377,6 +382,20 @@ body {
   font-weight: bold;
 }
 
+.absence{
+   background-color: #ff0000;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.late{
+  background-color: #a7b026;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
 .employee-manage-card {
   display: flex;
   flex-direction: column;
@@ -463,6 +482,7 @@ body {
   padding: 10px 15px;
   border-radius: 5px;
   font-weight: bold;
+  width: 254px;
   color: #333;
   text-align: center;
 }

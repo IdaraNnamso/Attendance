@@ -1,4 +1,4 @@
-import { FaHome, FaUserPlus, FaDatabase, FaCamera, FaUsers, FaCalendarAlt, FaMoneyBillWave, FaChartBar, FaEnvelope, FaCog, FaSignOutAlt } from 'react-icons/fa';
+import { FaHome, FaUserPlus, FaDatabase, FaCamera, FaUsers, FaCalendarAlt, FaMoneyBillWave, FaChartBar, FaEnvelope, FaCog, FaSignOutAlt, FaBell } from 'react-icons/fa';
 import '../css/sidebar.css';
 
 export default function Sidebar({ isOpen, onClose }) {
@@ -8,10 +8,10 @@ export default function Sidebar({ isOpen, onClose }) {
 
   const navItems = [
     { icon: FaHome, label: 'Dashboard', path: '/menu', active: true }, 
-    { icon: FaCalendarAlt, label: 'Attendance', path: '/attendance', active: false }, 
-    { icon: FaEnvelope, label: 'Messages', path: '/message', active: false },
     { icon: FaCamera, label: 'Take Attendace', path: '/face', active: false },
-    { icon: FaCog, label: 'Settings', path: '/setting', active: false }, 
+    { icon: FaCalendarAlt, label: 'Attendance', path: '/attendance', active: false }, 
+
+    { icon: FaCog, label: 'Settings', path: '/setting', active: false },
   ];
 
   return (

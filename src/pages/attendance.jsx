@@ -27,8 +27,6 @@ export default function RecentAttendance() {
         return <CheckCircle size={18} />;
       case 'Absent':
         return <XCircle size={18} />;
-      case 'Late':
-        return <Slash size={18} />;
       default:
         return null;
     }
@@ -39,7 +37,6 @@ export default function RecentAttendance() {
     return new Date().toLocaleDateString(undefined, options);
   };
 
-  // Clear attendance data handler
   const clearData = () => {
     localStorage.removeItem('attendanceData');
     setAttendanceData([]); // Update state to clear the UI immediately

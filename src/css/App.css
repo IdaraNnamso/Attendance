@@ -7,7 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.entry-page {
+.mainshell {
   min-height: 100vh;
   width: 100%;
   background-color: #111827;
@@ -16,9 +16,9 @@ body {
   flex-direction: column;
 }
 
-.branding-panel {
+.sidepic {
   width: 100%;
-  background-color: rgba(76, 29, 149, 0.5); 
+  background-color: rgba(76, 29, 149, 0.5);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -26,38 +26,37 @@ body {
   box-sizing: border-box;
 }
 
-.branding-logo {
-  height: 50px; 
+.tinylogo {
+  height: 50px;
   width: auto;
   margin-bottom: 2rem;
-  align-self: flex-start; 
+  align-self: flex-start;
 }
 
-.branding-content {
+.sidewords {
   text-align: center;
 }
 
-.branding-heading {
+.bigtext {
   font-size: 2.25rem;
   font-weight: 800;
   margin-bottom: 1rem;
   line-height: 1.2;
 }
 
-.branding-subheading {
+.subtext {
   font-size: 1.125rem;
   color: rgba(221, 214, 254, 0.8);
 }
 
-.branding-footer {
+.copybit {
   text-align: center;
   font-size: 0.75rem;
   color: rgba(196, 181, 253, 0.6);
   margin-top: 2rem;
 }
 
-
-.form-panel {
+.formside {
   width: 100%;
   display: flex;
   align-items: center;
@@ -66,31 +65,31 @@ body {
   box-sizing: border-box;
 }
 
-.form-wrapper {
+.formcard {
   width: 100%;
   max-width: 28rem;
 }
 
-.form-container {
+.loginBox {
   width: 100%;
 }
 
-.form-title {
+.formtitle {
   font-size: 1.875rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
 }
 
-.form-subtitle {
+.formnote {
   color: #9CA3AF;
   margin-bottom: 2rem;
 }
 
-.input-group {
+.loginBlob {
   margin-bottom: 1.25rem;
 }
 
-.form-label {
+.formlabel {
   display: block;
   color: #D1D5DB;
   font-size: 0.875rem;
@@ -98,7 +97,7 @@ body {
   margin-bottom: 0.5rem;
 }
 
-.form-input {
+.formipt {
   width: 100%;
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
@@ -108,16 +107,16 @@ body {
   box-sizing: border-box;
 }
 
-.form-input::placeholder {
-    color: #9ca3af;
+.formipt::placeholder {
+  color: #9ca3af;
 }
 
-.form-input:focus {
+.formipt:focus {
   outline: none;
   border-color: #8B5CF6;
 }
 
-.form-link-forgot {
+.forgotlink {
   font-size: 0.75rem;
   color: #A78BFA;
   float: right;
@@ -125,16 +124,16 @@ body {
   text-decoration: none;
 }
 
-.form-link-forgot:hover {
+.forgotlink:hover {
   color: #C4B5FD;
 }
 
-.button-group {
+.btnwrap {
   margin-top: 2rem;
 }
 
-.button-group > a {
-    text-decoration: none;
+.btnwrap > a {
+  text-decoration: none;
 }
 
 .btn {
@@ -151,31 +150,31 @@ body {
   justify-content: center;
 }
 
-.btn-primary {
+.btnloud {
   background-color: #7C3AED;
   color: #ffffff;
 }
 
-.btn-primary:hover {
+.btnloud:hover {
   background-color: #6D28D9;
 }
 
-.btn-social {
+.btnsoft {
   background-color: #1F2937;
   color: #ffffff;
 }
 
-.btn-social:hover {
+.btnsoft:hover {
   background-color: #374151;
 }
 
-.form-switch {
+.toggleform {
   margin-top: 2rem;
   text-align: center;
   color: #9CA3AF;
 }
 
-.form-link-switch {
+.formlink {
   font-weight: 700;
   color: #A78BFA;
   background-color: transparent;
@@ -185,68 +184,83 @@ body {
   font-size: 1em;
 }
 
-.form-link-switch:hover {
+.formlink:hover {
   color: #C4B5FD;
 }
 
-.divider {
+.formsplit {
   margin: 2rem 0;
   display: flex;
   align-items: center;
 }
 
-.divider-line {
+.splitline {
   flex-grow: 1;
   border-top: 1px solid #4B5563;
 }
 
-.divider-text {
+.splitword {
   flex-shrink: 0;
   margin: 0 1rem;
   color: #9CA3AF;
   font-size: 0.875rem;
 }
 
-.social-login-group {
+.socialbtns {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.icon {
+.gicon,
+.ghicon {
   width: 1.25rem;
   height: 1.25rem;
   margin-right: 0.75rem;
 }
 
+.popmsg {
+  background-color: #1E293B;
+  border-left: 4px solid #7C3AED;
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+
 @media (min-width: 768px) {
-  .entry-page {
+  .mainshell {
     flex-direction: row;
   }
-  .branding-panel {
+
+  .sidepic {
     width: 50%;
     padding: 3rem;
   }
-  .branding-content {
+
+  .sidewords {
     text-align: left;
-    margin-top: -3rem; 
+    margin-top: -3rem;
   }
-  .form-panel {
+
+  .formside {
     width: 50%;
     padding: 3rem;
   }
 }
 
 @media (min-width: 1024px) {
-  .branding-panel {
+  .sidepic {
     width: 40%;
     padding: 4rem;
   }
-  .branding-heading {
+
+  .bigtext {
     font-size: 3rem;
   }
-  .form-panel {
+
+  .formside {
     width: 60%;
   }
 }
-

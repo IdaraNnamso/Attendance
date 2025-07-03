@@ -11,51 +11,34 @@ export default function FacePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const loadModels = async () => {
-      const MODEL_URL = '/models';
+    const MODEL_URL = '/models';
 
-      await Promise.all([
-        faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL + '/tiny_face_detector'),
-        faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL + '/face_landmark_68'),
-        faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL + '/face_recognition'),
-      ]);
-
-      startVideo();
-    };
-
-    const startVideo = () => {
+    Promise.all([
+      faceapi.nets.tinyFaceDetector.loadFromUri(`${MODEL_URL}/tiny_face_detector`),
+      faceapi.nets.faceLandmark68Net.loadFromUri(`${MODEL_URL}/face_landmark_68`),
+      faceapi.nets.faceRecognitionNet.loadFromUri(`${MODEL_URL}/face_recognition`),
+    ]).then(() => {
       navigator.mediaDevices.getUserMedia({ video: true })
-        .then((stream) => {
-          if (videoRef.current) {
-            videoRef.current.srcObject = stream;
-          }
-        })
-        .catch((err) => {
-          console.error('❌ Camera access error:', err);
-        });
-    };
-
-    loadModels();
+        .then(stream => { if (videoRef.current) videoRef.current.srcObject = stream; })
+        .catch(err => console.error('❌ Camera access error:', err));
+    });
   }, []);
 
-  const handleVideoPlay = () => {
-    const intervalId = setInterval(async () => {
-      if (!videoRef.current || registered) {
-        clearInterval(intervalId);
-        return;
-      }
+  useEffect(() => {
+    if (!videoRef.current) return;
+    if (registered) return;
 
-      const detections = await faceapi.detectAllFaces(
-        videoRef.current,
-        new faceapi.TinyFaceDetectorOptions()
-      );
+    const interval = setInterval(async () => {
+      if (!videoRef.current) return;
+
+      const detections = await faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions());
 
       if (detections.length > 0 && !registered) {
         setRegistered(true);
         setShowModal(true);
       }
 
-      // Draw detections on canvas
+      // Draw on canvas
       const canvas = faceapi.createCanvasFromMedia(videoRef.current);
       faceapi.matchDimensions(canvas, {
         width: videoRef.current.videoWidth,
@@ -76,29 +59,25 @@ export default function FacePage() {
         canvasRef.current.appendChild(canvas);
       }
     }, 1000);
-  };
+
+    return () => clearInterval(interval);
+  }, [registered]);
 
   const handleModalOk = () => {
-    const currentDate = new Date();
-    const attendanceRecord = {
+    const now = new Date();
+    const record = {
       id: Date.now(),
       name: 'Akpan Idara',
       profileImg: 'https://ui-avatars.com/api/?name=Akpan+Idara&background=0D8ABC&color=fff',
       course: 'Computer Science',
-      date: currentDate.toLocaleDateString(undefined, {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      }),
-      timeIn: currentDate.toLocaleTimeString(),
+      date: now.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
+      timeIn: now.toLocaleTimeString(),
       timeOut: '--',
       status: 'Present',
     };
 
-    const existingData = JSON.parse(localStorage.getItem('attendanceData')) || [];
-    const updatedData = [...existingData, attendanceRecord];
-    localStorage.setItem('attendanceData', JSON.stringify(updatedData));
+    const data = JSON.parse(localStorage.getItem('attendanceData')) || [];
+    localStorage.setItem('attendanceData', JSON.stringify([...data, record]));
 
     setShowModal(false);
     navigate('/attendance');
@@ -114,9 +93,8 @@ export default function FacePage() {
           autoPlay
           muted
           playsInline
-          width="640"
-          height="480"
-          onPlay={handleVideoPlay}
+          width={640}
+          height={480}
           style={{ position: 'relative', zIndex: 1 }}
         />
         <div
@@ -134,16 +112,12 @@ export default function FacePage() {
         />
       </div>
 
-      {/* Modal popup */}
       {showModal && (
         <div
           style={{
-            position: 'fixed',
-            top: 0, left: 0, right: 0, bottom: 0,
+            position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
             backgroundColor: 'rgba(0,0,0,0.5)',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            display: 'flex', justifyContent: 'center', alignItems: 'center',
             zIndex: 1000,
           }}
         >
@@ -158,7 +132,7 @@ export default function FacePage() {
               textAlign: 'center',
             }}
           >
-            <h3 style={{ marginBottom: '1rem', color: '#4caf50' }}>✅ Attendance Marked</h3>
+            <h3 style={{ marginBottom: '1rem', color: '#2e1b5e' }}>✅ Attendance Marked</h3>
             <p>Your attendance has been successfully recorded.</p>
             <button
               onClick={handleModalOk}
@@ -167,7 +141,7 @@ export default function FacePage() {
                 padding: '0.6rem 2rem',
                 border: 'none',
                 borderRadius: '5px',
-                backgroundColor: '#4caf50',
+                backgroundColor: '#2e1b5e',
                 color: 'white',
                 fontWeight: 'bold',
                 cursor: 'pointer',
