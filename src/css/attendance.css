@@ -133,7 +133,7 @@ tbody tr:hover {
   color: #fbc02d;
 }
 
-/* Hide less important columns on small screens */
+
 @media (max-width: 768px) {
   .hide-mobile {
     display: none;

@@ -29,8 +29,8 @@ const LoginForm = ({ setFormType }) => {
 
   const handleLogin = () => {
     const dummyUser = {
-      email: 'Excellencennamso@gmail.com',
-      pass: 'kolawole@321'
+      email: 'nugi@gmail.com',
+      pass: 'nugi@321'
     };
 
     if (email === dummyUser.email && pass === dummyUser.pass) {
