@@ -15,9 +15,7 @@ const ProfilePage = () => {
   return (
     <div className="main-content">
       <div className="profile-section">
-        {/* <h2>Profile</h2>
-        <p className="profile-subtitle">View all your profile details here.</p> */}
-
+   
         <div className="profile-card">
           <div className="profile-left">
             <div className="profile-image-wrapper">
@@ -28,7 +26,7 @@ const ProfilePage = () => {
                 onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/150x150/cccccc/333333?text=Profile"; }} // Fallback if main image fails
               />
             </div>
-            <h3 className="user-name">Elon Musk</h3>
+            <h3 className="user-name">Akpan Idara</h3>
             <span className="premium-t">Student</span>
           </div>
 

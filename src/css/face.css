@@ -49,3 +49,19 @@ h2 {
 .overlay-canvas canvas {
   transform: scaleX(-1);
 }
+
+
+
+
+@media (max-width: 600px) {
+  .video-wrapper {
+  position: relative;
+  width: 450px;
+  height: 480px;
+  border: 3px solid #333;
+  border-radius: 10px;
+  overflow: hidden;
+  background: black;
+}
+
+}

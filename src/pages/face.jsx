@@ -4,61 +4,49 @@ import { useNavigate } from 'react-router-dom';
 import '../css/face.css';
 
 export default function FacePage() {
-  const videoRef = useRef(null);
-  const canvasRef = useRef(null);
-  const [registered, setRegistered] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const navigate = useNavigate();
+  const videoRef = useRef(null);    //creates reference to the video element and also to check if face has been detected
+  const canvasRef = useRef(null);    //used for the drawing of the detection boxes and mathe the video layout
+  const [registered, setRegistered] = useState(false);   //variable that track if the face has been detected
+  const [showModal, setShowModal] = useState(false);     //this is what ci=ontrols when the modal pops up
+  const navigate = useNavigate();  //navigate to attendance
 
   useEffect(() => {
     const MODEL_URL = '/models';
 
-    Promise.all([
-      faceapi.nets.tinyFaceDetector.loadFromUri(`${MODEL_URL}/tiny_face_detector`),
-      faceapi.nets.faceLandmark68Net.loadFromUri(`${MODEL_URL}/face_landmark_68`),
-      faceapi.nets.faceRecognitionNet.loadFromUri(`${MODEL_URL}/face_recognition`),
+    Promise.all([                                                                  //Promise.all: ensure all models are loaded before proceeding
+      faceapi.nets.tinyFaceDetector.loadFromUri(`${MODEL_URL}/tiny_face_detector`),  //fast face detector (detect all face every second)
+      faceapi.nets.faceLandmark68Net.loadFromUri(`${MODEL_URL}/face_landmark_68`),    //detect the different face landmarks (68) eg eyes, nose etc
+      faceapi.nets.faceRecognitionNet.loadFromUri(`${MODEL_URL}/face_recognition`),    //recognizes and matches face 
     ]).then(() => {
       navigator.mediaDevices.getUserMedia({ video: true })
         .then(stream => { if (videoRef.current) videoRef.current.srcObject = stream; })
-        .catch(err => console.error('❌ Camera access error:', err));
+        .catch(err => console.error('❌ Camera access error:', err));                     //ask for permission to access the camera and if granted the stream is sent to the "video element(videoref)
     });
   }, []);
 
-  useEffect(() => {
-    if (!videoRef.current) return;
-    if (registered) return;
 
-    const interval = setInterval(async () => {
+
+
+  useEffect(() => {
+    const interval = setInterval(async () => {                            //setInterval(...) (set atimer that checks the video feed every second)
       if (!videoRef.current) return;
 
-      const detections = await faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions());
+      const detections = await faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions());   //use faceapi to detects all faces in video frame
 
-      if (detections.length > 0 && !registered) {
-        setRegistered(true);
-        setShowModal(true);
-      }
+      if (detections.length > 0 && !registered) {       //if atleast 1 face is detected...
+        setRegistered(true);                            //stops checking for face
+        setShowModal(true);                             //shows a modal/popup
+      }  //ensure the face detections runs when needed and stops after sucess
 
-      // Draw on canvas
-      const canvas = faceapi.createCanvasFromMedia(videoRef.current);
-      faceapi.matchDimensions(canvas, {
+
+
+
+      const canvas = faceapi.createCanvasFromMedia(videoRef.current);   //creates a canvas that matches the video feed
+      faceapi.matchDimensions(canvas, {                                 //resize the internal drawing to fit the video resolution
         width: videoRef.current.videoWidth,
-        height: videoRef.current.videoHeight,
+        height: videoRef.current.videoHeight, //actual dimensions of the video while playing
       });
-
-      const resized = faceapi.resizeResults(detections, {
-        width: videoRef.current.videoWidth,
-        height: videoRef.current.videoHeight,
-      });
-
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      faceapi.draw.drawDetections(canvas, resized);
-
-      if (canvasRef.current) {
-        canvasRef.current.innerHTML = '';
-        canvasRef.current.appendChild(canvas);
-      }
-    }, 1000);
+}, 1000);
 
     return () => clearInterval(interval);
   }, [registered]);
@@ -68,7 +56,7 @@ export default function FacePage() {
     const record = {
       id: Date.now(),
       name: 'Akpan Idara',
-      profileImg: 'https://ui-avatars.com/api/?name=Akpan+Idara&background=0D8ABC&color=fff',
+      profileImg: 'https://i.guim.co.uk/img/media/74587bc9a8a10aad8443241024d558a5eac098d9/0_0_5108_3406/master/5108.jpg?width=465&dpr=1&s=none&crop=none',
       course: 'Computer Science',
       date: now.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
       timeIn: now.toLocaleTimeString(),
@@ -76,8 +64,10 @@ export default function FacePage() {
       status: 'Present',
     };
 
-    const data = JSON.parse(localStorage.getItem('attendanceData')) || [];
+    const data = JSON.parse(localStorage.getItem('attendanceData')) || [];    //get existing attendance record from local storage and returns a string that converts its into an array using  (JSON.parse)
     localStorage.setItem('attendanceData', JSON.stringify([...data, record]));
+//so this basically get the old records from localstorage, add the new attendance to it and save the updated record back into localstorage
+
 
     setShowModal(false);
     navigate('/attendance');

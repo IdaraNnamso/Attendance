@@ -19,6 +19,11 @@ export default function RecentAttendance() {
     }
   }, []);
 
+   const clearData = () => {
+    localStorage.removeItem('attendanceData');
+    setAttendanceData([]); 
+  };
+
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
   const getStatusIcon = (status) => {
@@ -37,10 +42,7 @@ export default function RecentAttendance() {
     return new Date().toLocaleDateString(undefined, options);
   };
 
-  const clearData = () => {
-    localStorage.removeItem('attendanceData');
-    setAttendanceData([]); // Update state to clear the UI immediately
-  };
+ 
 
   return (
     <div className="dashboard-layout">
@@ -80,8 +82,8 @@ export default function RecentAttendance() {
               <button className="view-all-btn" onClick={clearData}>Clear Data</button>
             </div>
             <div className="table-responsive">
-              {attendanceData.length === 0 ? (
-                <p style={{ padding: '1rem' }}>No attendance records found.</p>
+              {attendanceData.length === 0 ? (   //checks if the array(attendancedata) is empty, if it is it displays "No attendance records found."
+                <p style={{ padding: '1rem' }}> No attendance records found. </p>
               ) : (
                 <table>
                   <thead>
@@ -106,7 +108,8 @@ export default function RecentAttendance() {
                         <td><Clock size={16} className="table-icon" /> {record.timeIn}</td>
                         <td className="hide-mobile"><Clock size={16} className="table-icon" /> {record.timeOut}</td>
                         <td>
-                          <span className={`status-badge status-${record.status.toLowerCase()}`}>
+                        <span className={`status-badge status-${record.status}`}>
+
                             {getStatusIcon(record.status)} {record.status}
                           </span>
                         </td>
